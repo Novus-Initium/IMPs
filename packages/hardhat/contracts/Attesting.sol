@@ -51,7 +51,7 @@ contract Attesting {
 
     // mapping(uint256 uid => Attestation attestation) private _db;
     mapping(uint256 => Attestation) private _db;
-    
+
     /// @dev Creates a new SolAttest instance.
     constructor(address _owner) {
 	owner = _owner;
