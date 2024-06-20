@@ -1,0 +1,26 @@
+.project-pane {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    background-color: #f9f9f9;
+    color: black;
+  }
+  
+  .project-pane h3 {
+    margin-top: 0;
+  }
+  
+  .project-pane p {
+    margin: 8px 0;
+  }
+  
+  .project-pane a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .project-pane a:hover {
+    text-decoration: underline;
+  }
+  

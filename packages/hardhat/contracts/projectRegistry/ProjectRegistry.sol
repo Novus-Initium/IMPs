@@ -141,6 +141,18 @@ contract ProjectRegistry is Initializable {
     // Public functions
 
     /**
+     * @notice Returns all projects
+     * @return allProjects Array of all projects
+     */
+    function getAllProjects() external view returns (Project[] memory) {
+        Project[] memory allProjects = new Project[](projectsCount);
+        for (uint256 i = 0; i < projectsCount; i++) {
+            allProjects[i] = projects[i];
+        }
+        return allProjects;
+    }
+
+    /**
      * @notice Retrieve count of existing project owners
      * @param projectID ID of project 
      * @return Count of owners for given project

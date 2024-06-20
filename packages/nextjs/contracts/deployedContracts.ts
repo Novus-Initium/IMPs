@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   11155111: {
     Attesting: {
-      address: "0x373aA51226C4167E20ca08Dd390406D74E3303a9",
+      address: "0x145A9e670372aBe682ACD74c666b363f6E01c8F3",
       abi: [
         {
           inputs: [
@@ -381,7 +381,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     ProjectRegistry: {
-      address: "0x78Ca926C91c0A747ffA896989D1628ADfE5A7810",
+      address: "0x3aA4d7Bb99E5C95794e9d2E85054C8F326ed5c78",
       abi: [
         {
           anonymous: false,
@@ -525,6 +525,43 @@ const deployedContracts = {
           name: "createProject",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllProjects",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "protocol",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "string",
+                      name: "pointer",
+                      type: "string",
+                    },
+                  ],
+                  internalType: "struct MetaPtr",
+                  name: "metadata",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct ProjectRegistry.Project[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
