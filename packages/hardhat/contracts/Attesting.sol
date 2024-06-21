@@ -49,7 +49,8 @@ contract Attesting {
     // The global mapping between attestations and their UIDs.
     uint256 private lastUid = 1;
 
-    mapping(uint256 uid => Attestation attestation) private _db;
+    // mapping(uint256 uid => Attestation attestation) private _db;
+    mapping(uint256 => Attestation) private _db;
 
     /// @dev Creates a new SolAttest instance.
     constructor(address _owner) {
