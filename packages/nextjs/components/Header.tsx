@@ -20,8 +20,8 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/",
   },
   {
-    label: "Grants",
-    href: "/grants",
+    label: "Projects",
+    href: "/projects",
   },
   {
     label: "Debug Contracts",

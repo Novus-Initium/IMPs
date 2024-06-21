@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { ethers } from 'ethers';
-import ExploreProjects from '../../../../components/allo/ExploreProject';
+import ExploreProjects from '../../../components/allo/ExploreProjects';
 import { notification } from '~~/utils/scaffold-eth';
 
 function CreateProjectPage() {
