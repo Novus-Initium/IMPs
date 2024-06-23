@@ -13,12 +13,16 @@ const deployAlloSettings: DeployFunction = async function (hre: HardhatRuntimeEn
   const AlloSettingsParams: { [key: string]: { protocolFeePercentage: number; protocolTreasury: string; } } = {
     mainnet: {
       protocolFeePercentage: 100, // Example: 1%
-      protocolTreasury: "0xYourMainnetTreasuryAddress"
+      protocolTreasury: process.env.MAINNET_TREASURY_ADDRESS || "0x891D071510EdAC606519237f88C2a9F531fbFAbE"
     },
     sepolia: {
       protocolFeePercentage: 50, // Example: 0.5%
-      protocolTreasury: process.env.SEPOLIA_TREASURY_ADDRESS || "0x0b130fd03fA70571BB05197422B8e153CAc6bC65"
-    }
+      protocolTreasury: process.env.SEPOLIA_TREASURY_ADDRESS || "0x891D071510EdAC606519237f88C2a9F531fbFAbE"
+    },
+    hardhat: {
+        protocolFeePercentage: 50, // Example: 0.5%
+        protocolTreasury: process.env.HARDHAT_TREASURY_ADDRESS || "0x891D071510EdAC606519237f88C2a9F531fbFAbE"
+      }
   };
 
   const networkParams = AlloSettingsParams[hre.network.name];
@@ -42,7 +46,7 @@ const deployAlloSettings: DeployFunction = async function (hre: HardhatRuntimeEn
   const alloSettings = await ethers.getContractAt("AlloSettings", alloSettingsDeployment.address);
   const tx = await alloSettings.initialize();
   await tx.wait();
-  
+
   // Verify deployer is the owner
   const owner = await alloSettings.owner();
   if (owner.toLowerCase() !== deployer.toLowerCase()) {
