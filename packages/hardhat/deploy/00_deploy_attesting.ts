@@ -31,6 +31,8 @@ const deployAttesting: DeployFunction = async function (hre: HardhatRuntimeEnvir
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
+  console.log("✅ Deployed Attesting.");
+
 };
 
 export default deployAttesting;

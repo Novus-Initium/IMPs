@@ -3,13 +3,12 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { Contract } from "ethers";
 
 /**
- * Deploys a contract named "Attesting" using the deployer account and
+ * Deploys a contract named "ProjectRegistry" using the deployer account and
  * constructor arguments set to the deployer address
  *
  * @param hre HardhatRuntimeEnvironment object.
  */
-// CA: 0xbB2817A45155DaeEDF21c221477ab328B18AA578
-const deployAttesting: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const deployRegistry: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   /*
     On localhost, the deployer account is the one that comes with Hardhat, which is already funded.
 
@@ -31,10 +30,13 @@ const deployAttesting: DeployFunction = async function (hre: HardhatRuntimeEnvir
     // automatically mining the contract deployment transaction. There is no effect on live networks.
     autoMine: true,
   });
+
+  console.log("✅ Deployed ProjectRegistry.");
+
 };
 
-export default deployAttesting;
+export default deployRegistry;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags Attesting
-deployAttesting.tags = ["ProjectRegistry"];
+deployRegistry.tags = ["ProjectRegistry"];
