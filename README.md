@@ -1,21 +1,6 @@
-# 🏗 Scaffold-ETH 2
+# Imps - Impact Measurement Protocols
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
-
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
-
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
-
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
-
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+🤖 Built using Scaffold-Eth-2 
 
 ## Requirements
 
@@ -24,16 +9,11 @@ Before you begin, you need to install the following tools:
 - [Node (>= v18.17)](https://nodejs.org/en/download/)
 - Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
 - [Git](https://git-scm.com/downloads)
-
-## Quickstart
-
-To get started with Scaffold-ETH 2, follow the steps below:
-
 1. Clone this repo & install dependencies
 
 ```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
+git clone https://github.com/MekailTheMachine/imps
+cd imps
 yarn install
 ```
 
@@ -43,7 +23,7 @@ yarn install
 yarn chain
 ```
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+This command starts a local EVM Network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
 
 3. On a second terminal, deploy the test contract:
 
@@ -59,23 +39,108 @@ This command deploys a test smart contract to the local network. The contract is
 yarn start
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Visit your app on: `http://localhost:3000`. You can interact with your smart contract.
 
-**What's next**:
+⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, AlloV2, EAS, ERC1155 Hypercerts and more. 
 
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
-- Edit your smart contract test in: `packages/hardhat/test`. To run test use `yarn hardhat:test`
+# Features
 
-## Documentation
+User Profiles and Identity Management
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+Registry Contract: To create and manage user profiles (donors, funders, grantees) with specific roles and permissions.
+Anchor Contracts: Deployed for each profile to securely manage interactions with external addresses and handle funds.
+Grant Creation and Management
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+Grant Contracts: Allow grantees to create grants, submit proposals, and link impact reports and updates directly to their grants.
+Impact Reporting and Attestation
 
-## Contributing to Scaffold-ETH 2
+Impact Reports: Grantees submit periodic impact reports using hypercert technology, which are verifiable through Ethereum Attestation Service (EAS).
+Attestation System: Donors and funders attest to the validity and effectiveness of these reports, creating a decentralized review system.
+Voting and Fund Allocation
 
-We welcome contributions to Scaffold-ETH 2!
+Voting Contracts: Enable donors and funders to vote on the perceived impact of grants based on submitted reports.
+Quadratic Funding Pool (QF Pool): Adjusts the distribution of funds to grants based on the weighted votes from donors and funders.
+Custom Strategies and Governance
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+Custom Strategies: Implement strategies within the Allo contract to manage fund allocation, incorporating feedback from impact reports and votes.
+Governance Mechanisms: Ensure transparency and accountability by providing tools for enhanced governance within capital allocation and impact reporting.
+
+
+# Abstract
+
+Poor social health, poverty, lack of social programs, and overall coordination lie at the roots of our inability to healthily progress as a species. Giving citizens more political power and insights into the inner mechanics of their social systems is now more possible than ever.
+
+In our pursuit of enhancing community engagement, we must carefully consider the operating systems and models underpinning our communities and organizations. These systems, which have evolved over thousands of years, remain central to our collective existence. Yet, the opaque and arcane nature of many of these systems often undermines trust and inhibits meaningful community interaction. This opacity and lack of coordination can discourage engagement and make it difficult and inefficient to operate. With today’s technology, we have the power to mitigate many of the social issues described above, even litigatory behavior amongst HOAs and Homeowners, Non-profits, and more. To generate more trust, participation, and symbiosis within our underlying social infrastructures, we must focus on the development of our political infrastructures, underlying governance models, and approaches on bridging the two.
+
+## Objective
+
+Our goal is to close the transparency and accountability gaps in traditional public goods funding mechanisms. This will make funding more efficient and strengthen the bond between funders, donors, grantees, and their communities, fostering a sense of ownership, community, and purpose. We believe that this innovative approach can help increase public good funding and support important causes. We would like to provide tools and resources for enhanced governance within capital allocation and impact reporting.
+
+## How
+
+This can be accomplished by integrating systems where grantees can link tangible proof of their work directly to their grants through hypercert technology, verifiable through EAS. With this data, we can begin to give donors the power to evaluate and vote on the effectiveness of fund utilization. If a grant receives negative feedback from a significant portion of its supporters, SQF and batch-based funding can be halted, encouraging grantees to maintain some level of transparency and community engagement. This democratized oversight mechanism not only pressures grantees to be more open but also empowers more individuals to confidently invest in their communities, leading to broader participation in funding initiatives that have a real impact.
+
+Within AlloV2 Custom strategies, we can alter the flow of streamline or batch-based Quadratic Funding. Donors and funders can separately review the impact reports within the grants they have contributed to and weight their votes on how impactful they feel the project currently is. These voted weights can have negative effects on the grantees' share of the QF pool, urging them to provide more impactful reports or to reach out to funders or donors to address their attestation and attempt a resolve.
+
+By integrating the Scaffold-Eth-2 SDK, we can allow any project or community to create their own custom funding strategy, questions, weights, and more. Abstracting the process of implementing custom strategies and deploying custom rounds with enhanced governance mechanisms will be an everlasting journey.
+
+## Overall Interaction
+
+1. Users create profiles in the `Registry` contract and associate their addresses with specific roles and permissions.
+2. Users, identified by their addresses and associated profiles, interact with the `Allo` contract to create pools, allocate funds, and manage pools.
+3. The `Allo` contract checks user profiles with the `Registry` to ensure that only authorized users perform certain actions.
+4. Strategies (inherited from `BaseStrategy`) within the `Allo` contract handle allocation, distribution, and management of funds based on specific logic.
+5. The `Anchor` contract allows for dynamic execution of arbitrary calls based on predefined conditions, often triggered by events in the `Allo` ecosystem.
+6. Together, these contracts create an ecosystem where users can manage and allocate funds according to various strategies while adhering to predefined permissions and conditions.
+
+## Visualization
+
+```mermaid
+graph TD
+    Donor_Funder(Donor/Funder) -->|Funds| GrantContract(Grant Contract)
+    Donor_Funder -->|Contributes to| QFPool(QF Pool)
+    Grantee(Grantee) -->|Creates| Grants(Grants)
+    GrantContract -->|Allocates Funding to| Grants
+    QFPool -->|Supplements Grants With| Grants
+    Grants -->|Generates| ImpactReports(Impact Reports)
+    Donor_Funder -->|Reviews/Attests to| ImpactReports
+    ImpactReports -->|Influences| QFPool
+
+    classDef grants fill:#88d498,stroke:#333,stroke-width:2px;
+    classDef users fill:#4d908e,stroke:#333,stroke-width:2px;
+    classDef qfpool fill:#f6c667,stroke:#333,stroke-width:2px;
+    classDef impact fill:#f4acb7,stroke:#333,stroke-width:2px;
+    class Grantee,Donor_Funder users;
+    class GrantContract grants;
+    class QFPool qfpool;
+    class ImpactReports impact;
+```
+
+About Us
+Our team consists of experienced developers and experts in the Political and DeFi space. With shared history in working with non-profits and tracking federal grants funding allocated to under-resourced communities, we are passionate about using technology for social good. We believe that IMPs has the potential to fill in the larger remaining gaps in public goods funding incentives within local communities. Crafted by Ninit.
+
+
+### Implementation Plan
+
+1. **Setup Scaffold-Eth-2 Environment**
+   - Configure development environment with Scaffold-Eth-2.
+   - Deploy initial contracts: Registry, Anchor, and basic Grant Contracts.
+
+2. **Develop and Integrate Impact Reporting System**
+   - Implement hypercerts for impact reports.
+   - Integrate custom attestation services to rate the impact on projects funded.
+
+3. **Voting and Feedback Mechanism**
+   - Develop Voting Contracts to allow donors and funders to vote on projects and their relative impact reports.
+   - Integrate voting results with QF Pool to adjust fund allocation dynamically.
+
+4. **Custom Strategies for Fund Allocation**
+   - Implement custom strategies within Allo Contract to manage fund distribution based on impact votes.
+   - Ensure strategies are flexible and customizable for different communities.
+
+5. **Governance and Transparency**
+   - Develop tools for enhanced governance within the platform.
+   - Ensure transparency in all transactions and interactions within the ecosystem.
+
+
+Special thanks to the Doric Foundation for sponsoring the development of this project.
