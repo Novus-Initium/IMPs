@@ -4,12 +4,12 @@ import CreateProjectForm from '../../../components/allo/CreateProject';
 
 function CreateProjectPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-4 flex items-center justify-center p-6">
       <Head>
         <title>Create a new project</title>
       </Head>
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-lg w-full">
-        <h1 className="text-2xl font-bold mb-6 text-center">Create a New Project</h1>
+      <div className="bg-base-100 shadow-md rounded-lg p-1 max-w-lg w-full">
+        <h1 className="text-2xl font-bold mb-2 text-center">Create a New Project</h1>
         <CreateProjectForm />
       </div>
     </div>
