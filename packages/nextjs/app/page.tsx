@@ -3,48 +3,95 @@
 import Link from "next/link";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Address } from "~~/components/scaffold-eth";
+import { BugAntIcon, MagnifyingGlassIcon, BanknotesIcon, UserGroupIcon, BuildingLibraryIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
-
   return (
     <>
-      <div className="flex items-center flex-col flex-grow pt-10">
+      <div className="flex items-center flex-col flex-grow pt-2">
         <div className="px-5">
           <h1 className="text-center">
             <span className="block text-2xl mb-2">Impact Measurement Protocols</span>
-            <span className="block text-4xl font-bold">Fund A Round and Find Out</span>
+            <span className="block text-3xl font-bold">Fund A Round and Find Out</span>
           </h1>
-          <div className="flex justify-center items-center space-x-2">
-            <p className="my-2 font-medium">Connected Address:</p>
-            <Address address={connectedAddress} />
-          </div>
         </div>
-
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
+        <div className="flex-grow bg-base-300 w-full mt-2 px-8 py-6">
+          <div className="flex justify-center items-center gap-6 flex-col sm:flex-row">
+          <Link href="/projects" passHref>
+            <button className="hover:bg-base-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-transform duration-200 hover:-translate-y-1 active:translate-y-0">
+            <div className="flex flex-col bg-base-100 px-8 py-8 text-center items-center max-w-xs rounded-3xl">
+            <h1 className="text-center">
+            <span className="block text-2xl mb-2">Projects</span>
+          </h1>
+              <UserGroupIcon className="h-8 w-8 fill-secondary" />
               <p>
-                Tinker with your smart contract using the{" "}
+                <p><b>Create</b> a mission.
+                </p>
+                <b>Manage</b> a mission.
+                <p>
+                <b>Explore</b> live missions.{" "}
+                </p>
+                </p>
+                <Link href="/projects/explore" passHref className="link">
+                  View Current Missions
+                </Link>{" "}
+                <Link href="/projects/create" passHref className="link">
+                  Start a Mission
+                </Link>{" "}
+            </div>
+            </button>
+            </Link>
+            <Link href="/projects" passHref>
+            <button className="hover:bg-base-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-transform duration-200 hover:-translate-y-1 active:translate-y-0">
+            <div className="flex flex-col bg-base-100 p-6 text-center items-center max-w-xs rounded-3xl">
+            <h1 className="text-center">
+            <span className="block text-2xl mb-1">Rounds</span>
+            </h1>
+            <BanknotesIcon className="h-8 w-8 fill-secondary"/>
+            <p>
+            <p><b>Apply</b> for a grant.
+                </p>
+                <b>Donate</b> to a grant.
+                <p>
+                <b>Attest</b> on a missions impact.
+                <p><b>Fund</b> A Round
+                <p></p><b>Find</b> Out</p>{" "}
+                </p>
+                </p>
                 <Link href="/debug" passHref className="link">
-                  Debug Contracts
+                  View Current Grants
                 </Link>{" "}
-                tab.
-              </p>
+                <Link href="/debug" passHref className="link">
+                  Donate and Vote for Impact!
+                </Link>{" "}
             </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
+            </button>
+            </Link>
+            <Link href="/projects" passHref>
+            <button className="hover:bg-base-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-transform duration-200 hover:-translate-y-1 active:translate-y-0">
+            <div className="flex flex-col bg-base-100 px-8 py-8 text-center items-center max-w-xs rounded-3xl">
+            <h1 className="text-center">
+            <span className="block text-2xl mb-2">Manager</span>
+          </h1>
+              <BuildingLibraryIcon className="h-8 w-8 fill-secondary" />
               <p>
-                Explore your local transactions with the{" "}
-                <Link href="/blockexplorer" passHref className="link">
-                  Block Explorer
+            <p><b>Create</b> a round.
+                </p>
+                <b>Manage</b> a round.
+                <p>
+                <b>Review</b> all donations.
+                {" "}
+                </p>
+                </p>
+                <Link href="/debug" passHref className="link">
+                  View Current Rounds
                 </Link>{" "}
-                tab.
-              </p>
+                <Link href="/debug" passHref className="link">
+                  Create a new Round
+                </Link>{" "}
             </div>
+            </button>
+            </Link>
           </div>
         </div>
       </div>
