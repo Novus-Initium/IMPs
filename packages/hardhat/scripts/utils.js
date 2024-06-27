@@ -1,5 +1,5 @@
-import { AbiCoder, ethers } from "ethers";
-import * as dotenv from "dotenv";
+const { AbiCoder } = require("ethers");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ dotenv.config();
  * @param params
  * @returns {string}
  */
-export const encodeProgramParameters = (params) => {
+const encodeProgramParameters = (params) => {
   const abiCoder = new AbiCoder();
   return abiCoder.encode(
     ["tuple(uint256 protocol, string pointer)", "address[]", "address[]"],
@@ -24,7 +24,7 @@ export const encodeProgramParameters = (params) => {
  * @returns {string}
  */
 
-  export const encodeRoundParameters = (params) => {
+  const encodeRoundParameters = (params) => {
     const abiCoder = new AbiCoder();
     return abiCoder.encode(
       [
@@ -47,7 +47,7 @@ export const encodeProgramParameters = (params) => {
  * @param params
  * @returns {string}
  */
-export const encodeMerkleUpdateDistributionParameters = (params) => {
+const encodeMerkleUpdateDistributionParameters = (params) => {
   const abiCoder = new AbiCoder();
   return abiCoder.encode(
     [
@@ -61,7 +61,7 @@ export const encodeMerkleUpdateDistributionParameters = (params) => {
 /**
  * Asserts that environment variables are set as expected.
  */
-export const assertEnvironment = () => {
+const assertEnvironment = () => {
   if (!process.env.DEPLOYER_PRIVATE_KEY) {
     console.error("Please set your DEPLOYER_PRIVATE_KEY in a .env file");
   }
@@ -70,9 +70,10 @@ export const assertEnvironment = () => {
   }
 }
 
-export const getABI = (networkName, contractName) => {
+const getABI = (networkName, contractName) => {
   try {
-    const abiFile = require(`../../../hardhat/deployments/${networkName}/${contractName}.json`);
+    const abiFile = require(`../deployments/${networkName}/${contractName}.json`);
+    console.log(abiFile)
     if (!abiFile.address) {
       throw new Error(`Address not found for ${contractName} on network ${networkName}`);
     }
@@ -82,19 +83,32 @@ export const getABI = (networkName, contractName) => {
   }
 };
 
+const chainIdToNetworkName = {
+  "1": "mainnet",
+  "4": "rinkeby",
+  "42": "kovan",
+  "137": "polygon",
+  "31337": "localhost",
+};
 
-export async function getNetworkName() {
+const getNetworkName = async (provider) => {
+  try {
+    const network = await provider.getNetwork();
+    const chainId = network.chainId.toString();
+    const networkName = chainIdToNetworkName[chainId] || "localhost";
+    if (!networkName) throw new Error(`Network name for chain ID ${chainId} not found`);
+    return networkName;
+  } catch (error) {
+    console.error(`Failed to get network name: ${error.message}`);
+    throw error;
+  }
+};
 
-  const chainIdToNetworkName = {
-    "1": "mainnet",
-    "4": "rinkeby",
-    "42": "kovan",
-    "137": "polygon",
-    "31337": "localhost",
-  };
-
-  const provider = new BrowserProvider((window).ethereum);
-  const network = await provider.getNetwork();
-  const chainId = network.chainId.toString();
-  const detectedNetworkName = chainIdToNetworkName[chainId] || "localhost";
-}
+module.exports = {
+  encodeProgramParameters,
+  encodeRoundParameters,
+  encodeMerkleUpdateDistributionParameters,
+  assertEnvironment,
+  getABI,
+  getNetworkName
+};

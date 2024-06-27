@@ -1,19 +1,14 @@
-import { ethers } from 'ethers';
-import { getABI, getNetworkName } from '../../../hardhat/scripts/utils';
+const { ethers } = require("ethers");
+const { getABI, getNetworkName } = require("./utils");
 
-export enum ApplicationStatus {
-  PENDING,
-  ACCEPTED,
-  REJECTED,
-  CANCELED,
-}
+const ApplicationStatus = {
+  PENDING: 0,
+  ACCEPTED: 1,
+  REJECTED: 2,
+  CANCELED: 3,
+};
 
-interface ApplicationStatusUpdate {
-  index: number;
-  status: ApplicationStatus;
-}
-
-function buildStatusRow(currentStatuses: bigint, updates: ApplicationStatusUpdate[]): bigint {
+function buildStatusRow(currentStatuses, updates) {
   for (const { index, status } of updates) {
     const shift = BigInt(index * 2);
     const mask = BigInt(3) << shift;
@@ -22,12 +17,7 @@ function buildStatusRow(currentStatuses: bigint, updates: ApplicationStatusUpdat
   return currentStatuses;
 }
 
-export async function setApplicationStatuses(
-  provider: ethers.BrowserProvider,
-  roundAddress: string,
-  statuses: ApplicationStatusUpdate[],
-  applicationStatusBitMapIndex: number = 0
-) {
+async function setApplicationStatuses(provider, roundAddress, statuses, applicationStatusBitMapIndex = 0) {
   try {
     const signer = await provider.getSigner();
     const networkName = await getNetworkName(provider);
@@ -51,3 +41,8 @@ export async function setApplicationStatuses(
     throw error;
   }
 }
+
+module.exports = {
+  ApplicationStatus,
+  setApplicationStatuses
+};

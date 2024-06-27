@@ -8,7 +8,8 @@ import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 import { BrowserProvider, Contract, parseUnits, getAddress, isAddress, AbiCoder } from 'ethers';
 import { encodeRoundParameters } from "../../../hardhat/scripts/utils";
-import {getABI} from "../../../hardhat/scripts/utils"
+import {getABI, getNetworkName} from "../../../hardhat/scripts/utils"
+import { setApplicationStatuses, ApplicationStatus } from "../../utils/allo/setApplicationStatus";
 
 // Define AddressZero manually
 const AddressZero = '0x0000000000000000000000000000000000000000';
@@ -20,7 +21,6 @@ const chainIdToNetworkName: { [key: string]: string } = {
   "137": "polygon",
   "31337": "localhost",
 };
-
 
 const CreateRoundForm: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -165,6 +165,7 @@ const CreateRoundForm: React.FC = () => {
       await tx.wait();
 
       notification.success("Round created successfully");
+
     } catch (error: any) {
       console.error('Contract call failed:', error);
       notification.error(`Failed to create round: ${error.message}`);

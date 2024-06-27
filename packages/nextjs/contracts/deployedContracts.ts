@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     AlloSettings: {
-      address: "0xf5059a5D33d5853360D16C683c16e67980206f36",
+      address: "0x276C216D241856199A83bf27b2286659e5b877D3",
       abi: [
         {
           anonymous: false,
@@ -196,7 +196,7 @@ const deployedContracts = {
       },
     },
     Attesting: {
-      address: "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
+      address: "0x5067457698Fd6Fa1C6964e416b3f42713513B3dD",
       abi: [
         {
           inputs: [
@@ -570,7 +570,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     MerklePayoutStrategyFactory: {
-      address: "0xa82fF9aFd8f496c3d6ac40E2a0F282E47488CFc9",
+      address: "0x22753E4264FDDc6181dc7cce468904A80a363E44",
       abi: [
         {
           anonymous: false,
@@ -743,7 +743,7 @@ const deployedContracts = {
       },
     },
     MerklePayoutStrategyImplementation: {
-      address: "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
+      address: "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877",
       abi: [
         {
           anonymous: false,
@@ -1088,7 +1088,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     ProgramFactory: {
-      address: "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+      address: "0xCace1b78160AE76398F486c8a18044da0d66d86D",
       abi: [
         {
           anonymous: false,
@@ -1250,7 +1250,7 @@ const deployedContracts = {
       },
     },
     ProgramImplementation: {
-      address: "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
+      address: "0x4b6aB5F819A515382B0dEB6935D793817bB4af28",
       abi: [
         {
           anonymous: false,
@@ -1645,7 +1645,7 @@ const deployedContracts = {
       },
     },
     ProjectRegistry: {
-      address: "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
+      address: "0x18E317A7D70d8fBf8e6E893616b52390EbBdb629",
       abi: [
         {
           anonymous: false,
@@ -1998,7 +1998,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     QuadraticFundingVotingStrategyFactory: {
-      address: "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+      address: "0xc96304e3c037f81dA488ed9dEa1D8F2a48278a75",
       abi: [
         {
           anonymous: false,
@@ -2171,7 +2171,7 @@ const deployedContracts = {
       },
     },
     QuadraticFundingVotingStrategyImplementation: {
-      address: "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
+      address: "0xc0F115A19107322cFBf1cDBC7ea011C19EbDB4F8",
       abi: [
         {
           anonymous: false,
@@ -2307,7 +2307,7 @@ const deployedContracts = {
       },
     },
     RoundFactory: {
-      address: "0x99bbA657f2BbC93c02D617f8bA121cB8Fc104Acf",
+      address: "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
       abi: [
         {
           anonymous: false,
@@ -2549,7 +2549,7 @@ const deployedContracts = {
       },
     },
     RoundImplementation: {
-      address: "0x4826533B4897376654Bb4d4AD88B7faFD0C98528",
+      address: "0xffa7CA1AEEEbBc30C874d32C7e22F052BbEa0429",
       abi: [
         {
           anonymous: false,
