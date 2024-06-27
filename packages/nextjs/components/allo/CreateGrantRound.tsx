@@ -33,6 +33,8 @@ const getABI = (networkName: string, contractName: string) => {
 };
 
 const CreateRoundForm: React.FC = () => {
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [ownerAddress, setOwnerAddress] = useState<string>("");
   const [matchAmount, setMatchAmount] = useState<string>("");
   const [token, setToken] = useState<string>(AddressZero);
@@ -42,7 +44,6 @@ const CreateRoundForm: React.FC = () => {
   const [applicationsEndTime, setApplicationsEndTime] = useState<Date | null>(null);
   const [roundStartTime, setRoundStartTime] = useState<Date | null>(null);
   const [roundEndTime, setRoundEndTime] = useState<Date | null>(null);
-  const [ownedBy, setOwnedBy] = useState<string>("");
   const [networkName, setNetworkName] = useState<string | null>(null);
   const { writeContractAsync, isMining } = useScaffoldWriteContract("RoundFactory");
 
@@ -103,10 +104,8 @@ const CreateRoundForm: React.FC = () => {
       const payoutStrategyFactory = getABI(networkName, "MerklePayoutStrategyFactory");
 
       const initAddress = {
-
         votingStrategyFactory: validateAddress(votingStrategyFactory.address),
         payoutStrategyFactory: validateAddress(payoutStrategyFactory.address),
-
       };
 
 
@@ -117,14 +116,29 @@ const CreateRoundForm: React.FC = () => {
         roundEndTime: roundEndTime ? Math.floor(roundEndTime.getTime() / 1000) : 0,
       };
 
-      const roundMetadata = {
-        name: "Grant Round",
-        description: "This is a grant round for funding projects",
-      };
-
       const applicationMetadata = {
         name: "Application",
         description: "This is an application for the grant round",
+      };
+
+      const initRoles = {
+        adminRoles: [validateAddress(ownerAddress)],
+        roundOperators: [validateAddress(ownerAddress)],
+      };
+
+      const roundMetadata = {
+        name: name,
+        description: description,
+        applicationsStartTime: applicationsStartTime,
+        applicationsEndTime: applicationsEndTime,
+        roundStartTime: roundStartTime,
+        roundEndTime: roundEndTime,
+        matchAmount: matchAmount,
+        token: token,
+        roundFeePercentage: roundFeePercentage,
+        roundFeeAddress: roundFeeAddress,
+        ownerAddress: ownerAddress,
+        initRoles: initRoles,
       };
 
       const roundMetaPtrCID = await handleUploadToPinata(roundMetadata);
@@ -133,11 +147,6 @@ const CreateRoundForm: React.FC = () => {
       const initMetaPtr = {
         roundMetaPtr: { protocol: 1, pointer: roundMetaPtrCID },
         applicationMetaPtr: { protocol: 1, pointer: applicationMetaPtrCID },
-      };
-
-      const initRoles = {
-        adminRoles: [validateAddress(ownerAddress)],
-        roundOperators: [validateAddress(ownerAddress)],
       };
 
       const matchAmountParsed = parseUnits(matchAmount, 18);
@@ -175,6 +184,32 @@ const CreateRoundForm: React.FC = () => {
   return (
     <form onSubmit={handleCreateRound} className="space-y-6">
       <h1 className="text-2xl font-bold mb-6 text-center text-black">Create a Grant Round</h1>
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          Round Name
+        </label>
+        <input
+          id="name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+        />
+      </div>
+      <div>
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+          Round Description
+        </label>
+        <input
+          id="name"
+          type="text"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+        />
+      </div>
       <div>
         <label htmlFor="matchAmount" className="block text-sm font-medium text-gray-700">
           Match Amount
