@@ -8,6 +8,7 @@ import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 import { BrowserProvider, Contract, parseUnits, getAddress, isAddress, AbiCoder } from 'ethers';
 import { encodeRoundParameters } from "../../../hardhat/scripts/utils";
+import {getABI} from "../../../hardhat/scripts/utils"
 
 // Define AddressZero manually
 const AddressZero = '0x0000000000000000000000000000000000000000';
@@ -20,17 +21,6 @@ const chainIdToNetworkName: { [key: string]: string } = {
   "31337": "localhost",
 };
 
-const getABI = (networkName: string, contractName: string) => {
-  try {
-    const abiFile = require(`../../../hardhat/deployments/${networkName}/${contractName}.json`);
-    if (!abiFile.address) {
-      throw new Error(`Address not found for ${contractName} on network ${networkName}`);
-    }
-    return { abi: abiFile.abi, address: abiFile.address };
-  } catch (error) {
-    throw new Error(`ABI for ${contractName} on network ${networkName} not found`);
-  }
-};
 
 const CreateRoundForm: React.FC = () => {
   const [name, setName] = useState<string>("");

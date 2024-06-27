@@ -69,3 +69,32 @@ export const assertEnvironment = () => {
     console.error("Please set your INFURA_ID in a .env file");
   }
 }
+
+export const getABI = (networkName, contractName) => {
+  try {
+    const abiFile = require(`../../../hardhat/deployments/${networkName}/${contractName}.json`);
+    if (!abiFile.address) {
+      throw new Error(`Address not found for ${contractName} on network ${networkName}`);
+    }
+    return { abi: abiFile.abi, address: abiFile.address };
+  } catch (error) {
+    throw new Error(`ABI for ${contractName} on network ${networkName} not found`);
+  }
+};
+
+
+export async function getNetworkName() {
+
+  const chainIdToNetworkName = {
+    "1": "mainnet",
+    "4": "rinkeby",
+    "42": "kovan",
+    "137": "polygon",
+    "31337": "localhost",
+  };
+
+  const provider = new BrowserProvider((window).ethereum);
+  const network = await provider.getNetwork();
+  const chainId = network.chainId.toString();
+  const detectedNetworkName = chainIdToNetworkName[chainId] || "localhost";
+}
