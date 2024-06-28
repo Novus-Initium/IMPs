@@ -10,6 +10,8 @@ import { BrowserProvider, Contract, parseUnits, getAddress, isAddress, AbiCoder 
 import { encodeRoundParameters } from "../../../hardhat/scripts/utils";
 import {getABI, getNetworkName} from "../../../hardhat/scripts/utils"
 import { setApplicationStatuses, ApplicationStatus } from "../../utils/allo/setApplicationStatus";
+import fetchRoundCreatedEvents from "../../utils/allo/fetchRoundCreatedEvents";
+import ethers from 'ethers';
 
 // Define AddressZero manually
 const AddressZero = '0x0000000000000000000000000000000000000000';
@@ -89,7 +91,7 @@ const CreateRoundForm: React.FC = () => {
       const provider = new BrowserProvider((window as any).ethereum);
       const signer = await provider.getSigner();
       const roundFactory = getABI(networkName, "RoundFactory");
-      const contract = new Contract(roundFactory.address, roundFactory.abi, signer);
+      const contract = new Contract(roundFactory.address, roundFactory.abi, signer) as unknown as Contract & { interface: Interface };
       const votingStrategyFactory = getABI(networkName, "QuadraticFundingVotingStrategyFactory");
       const payoutStrategyFactory = getABI(networkName, "MerklePayoutStrategyFactory");
 
@@ -97,7 +99,6 @@ const CreateRoundForm: React.FC = () => {
         votingStrategyFactory: validateAddress(votingStrategyFactory.address),
         payoutStrategyFactory: validateAddress(payoutStrategyFactory.address),
       };
-
 
       const initRoundTime = {
         applicationsStartTime: applicationsStartTime ? Math.floor(applicationsStartTime.getTime() / 1000) : 0,
@@ -160,11 +161,39 @@ const CreateRoundForm: React.FC = () => {
       // Log encoded parameters for debugging
       console.log('Encoded Parameters:', encodedParameters);
 
+      contract.on("RoundCreated", async (roundAddress, ownedBy, roundImplementation) => {
+        console.log(`Round created at address: ${roundAddress}`);
+        const statuses = [
+          { index: 0, status: ApplicationStatus.PENDING },
+          { index: 1, status: ApplicationStatus.ACCEPTED },
+          { index: 2, status: ApplicationStatus.REJECTED },
+          { index: 3, status: ApplicationStatus.CANCELED },
+        ];
+  
+        await setApplicationStatuses(provider, roundAddress, statuses);
+        notification.success("Application statuses set successfully");
+      });
+
+      contract.on("RoundCreated", async (roundAddress, ownedBy, roundImplementation) => {
+        console.log(`Round created at address: ${roundAddress}`);
+        const statuses = [
+          { index: 0, status: ApplicationStatus.PENDING },
+          { index: 1, status: ApplicationStatus.ACCEPTED },
+          { index: 2, status: ApplicationStatus.REJECTED },
+          { index: 3, status: ApplicationStatus.CANCELED },
+        ];
+  
+        await setApplicationStatuses(provider, roundAddress, statuses);
+        notification.success("Application statuses set successfully");
+      });
+      
       // Call the contract method
       const tx = await contract.create(encodedParameters, validateAddress(ownerAddress));
-      await tx.wait();
+      const receipt = await tx.wait();
 
+      
       notification.success("Round created successfully");
+
 
     } catch (error: any) {
       console.error('Contract call failed:', error);
