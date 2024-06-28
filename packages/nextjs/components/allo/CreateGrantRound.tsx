@@ -189,10 +189,10 @@ const CreateRoundForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleCreateRound} className="space-y-6">
-      <h1 className="text-2xl font-bold mb-6 text-center text-black">Create a Grant Round</h1>
+    <form onSubmit={handleCreateRound} className=" bg-base-400 space-y-6">
+      <h1 className="text-2xl font-bold mb-6 text-center text-black"></h1>
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="name" className="block text-sm font-medium text-white">
           Round Name
         </label>
         <input
@@ -201,11 +201,11 @@ const CreateRoundForm: React.FC = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block w-full px-3 py-2 border border-white rounded-md shadow-sm"
         />
       </div>
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="description" className="block text-sm font-medium text-white">
           Round Description
         </label>
         <input
@@ -214,11 +214,11 @@ const CreateRoundForm: React.FC = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block w-full px-3 py-2 border border-yellow-100 rounded-md shadow-sm"
         />
       </div>
       <div>
-        <label htmlFor="matchAmount" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="matchAmount" className="block text-sm font-medium text-white">
           Match Amount
         </label>
         <input
@@ -227,11 +227,11 @@ const CreateRoundForm: React.FC = () => {
           value={matchAmount}
           onChange={(e) => setMatchAmount(e.target.value)}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block w-full px-3 py-2 border border-yellow-100 rounded-md shadow-sm"
         />
       </div>
       <div>
-        <label htmlFor="token" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="token" className="block text-sm font-medium text-white">
           Token Address (use 0x000...000 for ETH)
         </label>
         <input
@@ -240,11 +240,11 @@ const CreateRoundForm: React.FC = () => {
           value={token}
           onChange={(e) => setToken(e.target.value)}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          className="mt-1 block w-full px-3 py-2 border border-yellow-100 rounded-md shadow-sm"
         />
       </div>
       <div>
-        <label htmlFor="applicationsStartTime" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="applicationsStartTime" className="block text-sm font-medium text-white">
           Applications Start Time
         </label>
         <div className="mt-1">
@@ -253,12 +253,12 @@ const CreateRoundForm: React.FC = () => {
             onChange={(date) => setApplicationsStartTime(date)}
             showTimeSelect
             dateFormat="Pp"
-            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-yellow-100 rounded-md shadow-sm"
           />
         </div>
       </div>
       <div>
-        <label htmlFor="applicationsEndTime" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="applicationsEndTime" className="block text-sm font-medium text-white">
           Applications End Time
         </label>
         <div className="mt-1">
@@ -267,12 +267,12 @@ const CreateRoundForm: React.FC = () => {
             onChange={(date) => setApplicationsEndTime(date)}
             showTimeSelect
             dateFormat="Pp"
-            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-yellow-100 rounded-md shadow-sm"
           />
         </div>
       </div>
       <div>
-        <label htmlFor="roundStartTime" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="roundStartTime" className="block text-sm font-medium text-white">
           Round Start Time
         </label>
         <div className="mt-1">
@@ -281,12 +281,12 @@ const CreateRoundForm: React.FC = () => {
             onChange={(date) => setRoundStartTime(date)}
             showTimeSelect
             dateFormat="Pp"
-            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-yellow-100 rounded-md shadow-sm"
           />
         </div>
       </div>
       <div>
-        <label htmlFor="roundEndTime" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="roundEndTime" className="block text-sm font-medium text-white">
           Round End Time
         </label>
         <div className="mt-1">
@@ -295,7 +295,7 @@ const CreateRoundForm: React.FC = () => {
             onChange={(date) => setRoundEndTime(date)}
             showTimeSelect
             dateFormat="Pp"
-            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+            className="custom-datepicker-input mt-1 block w-full px-3 py-2 border border-yellow-100 rounded-md shadow-sm"
           />
         </div>
       </div>
@@ -303,7 +303,7 @@ const CreateRoundForm: React.FC = () => {
         <button
           type="submit"
           disabled={isMining}
-          className="w-full max-w-xs py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="w-full max-w-xs py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
         >
           {isMining ? "Creating Round..." : "Create Round"}
         </button>

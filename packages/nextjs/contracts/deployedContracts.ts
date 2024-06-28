@@ -744,6 +744,7 @@ const deployedContracts = {
     },
     MerklePayoutStrategyImplementation: {
       address: "0x07882Ae1ecB7429a84f1D53048d35c4bB2056877",
+
       abi: [
         {
           anonymous: false,
@@ -1088,7 +1089,9 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     ProgramFactory: {
+
       address: "0xCace1b78160AE76398F486c8a18044da0d66d86D",
+
       abi: [
         {
           anonymous: false,
@@ -1251,6 +1254,7 @@ const deployedContracts = {
     },
     ProgramImplementation: {
       address: "0x4b6aB5F819A515382B0dEB6935D793817bB4af28",
+
       abi: [
         {
           anonymous: false,
@@ -1646,6 +1650,7 @@ const deployedContracts = {
     },
     ProjectRegistry: {
       address: "0x18E317A7D70d8fBf8e6E893616b52390EbBdb629",
+
       abi: [
         {
           anonymous: false,
@@ -1999,6 +2004,7 @@ const deployedContracts = {
     },
     QuadraticFundingVotingStrategyFactory: {
       address: "0xc96304e3c037f81dA488ed9dEa1D8F2a48278a75",
+
       abi: [
         {
           anonymous: false,
@@ -2172,6 +2178,7 @@ const deployedContracts = {
     },
     QuadraticFundingVotingStrategyImplementation: {
       address: "0xc0F115A19107322cFBf1cDBC7ea011C19EbDB4F8",
+
       abi: [
         {
           anonymous: false,
@@ -2308,6 +2315,7 @@ const deployedContracts = {
     },
     RoundFactory: {
       address: "0x3aAde2dCD2Df6a8cAc689EE797591b2913658659",
+
       abi: [
         {
           anonymous: false,
@@ -2550,6 +2558,7 @@ const deployedContracts = {
     },
     RoundImplementation: {
       address: "0xffa7CA1AEEEbBc30C874d32C7e22F052BbEa0429",
+
       abi: [
         {
           anonymous: false,

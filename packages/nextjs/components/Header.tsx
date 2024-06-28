@@ -4,7 +4,7 @@ import React, { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bars3Icon, BugAntIcon, NewspaperIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, NewspaperIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
@@ -28,7 +28,15 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/grants",
   },
   {
-    label: "Debug Contracts",
+    label: "Manager",
+    href: "/manager",
+  },
+  {
+    label: "About",
+    href: "/about",
+  },
+  {
+    label: "Contracts",
     href: "/debug",
     icon: <NewspaperIcon className="h-4 w-4" />,
   },
@@ -48,7 +56,7 @@ export const HeaderMenuLinks = () => {
               passHref
               className={`${
                 isActive ? "bg-secondary shadow-md" : ""
-              } hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-full gap-2 grid grid-flow-col`}
+              } hover:bg-secondary hover:shadow-md focus:!bg-secondary active:!text-neutral py-1.5 px-3 text-sm rounded-md gap-2 grid grid-flow-col`}
             >
               {icon}
               <span>{label}</span>
@@ -87,7 +95,7 @@ export const Header = () => {
           {isDrawerOpen && (
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-md w-52"
               onClick={() => {
                 setIsDrawerOpen(false);
               }}
