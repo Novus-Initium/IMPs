@@ -173,19 +173,6 @@ const CreateRoundForm: React.FC = () => {
         await setApplicationStatuses(provider, roundAddress, statuses);
         notification.success("Application statuses set successfully");
       });
-
-      contract.on("RoundCreated", async (roundAddress, ownedBy, roundImplementation) => {
-        console.log(`Round created at address: ${roundAddress}`);
-        const statuses = [
-          { index: 0, status: ApplicationStatus.PENDING },
-          { index: 1, status: ApplicationStatus.ACCEPTED },
-          { index: 2, status: ApplicationStatus.REJECTED },
-          { index: 3, status: ApplicationStatus.CANCELED },
-        ];
-  
-        await setApplicationStatuses(provider, roundAddress, statuses);
-        notification.success("Application statuses set successfully");
-      });
       
       // Call the contract method
       const tx = await contract.create(encodedParameters, validateAddress(ownerAddress));

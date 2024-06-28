@@ -23,31 +23,46 @@ function buildStatusRow(currentStatuses: bigint, updates: ApplicationStatusUpdat
 }
 
 export async function setApplicationStatuses(
-  provider: ethers.BrowserProvider,
-  roundAddress: string,
-  statuses: ApplicationStatusUpdate[],
-  applicationStatusBitMapIndex: number = 0
-) {
-  try {
-    const signer = await provider.getSigner();
-    const networkName = await getNetworkName(provider);
-    const roundImplementationABI = getABI(networkName, "RoundImplementation").abi;
-    const contract = new ethers.Contract(roundAddress, roundImplementationABI, signer);
-
-    const currentStatuses = await contract.applicationStatusesBitMap(applicationStatusBitMapIndex);
-    const newState = buildStatusRow(BigInt(currentStatuses.toString()), statuses);
-
-    const applicationStatus = {
-      index: applicationStatusBitMapIndex,
-      statusRow: newState,
-    };
-
-    const updateTx = await contract.setApplicationStatuses([applicationStatus]);
-    await updateTx.wait();
-
-    console.log("✅ Application statuses updated: ", updateTx.hash);
-  } catch (error) {
-    console.error("Failed to set application statuses:", error);
-    throw error;
+    provider: ethers.BrowserProvider,
+    roundAddress: string,
+    statuses: ApplicationStatusUpdate[],
+    applicationStatusBitMapIndex: number = 0
+  ) {
+    try {
+      const signer = await provider.getSigner();
+      const networkName = await getNetworkName(provider);
+      const roundImplementationABI = getABI(networkName, "RoundImplementation").abi;
+      const contract = new ethers.Contract(roundAddress, roundImplementationABI, signer);
+  
+      // Get the current application statuses bitmap
+      const currentStatuses = await contract.applicationStatusesBitMap(applicationStatusBitMapIndex);
+      const newState = buildStatusRow(BigInt(currentStatuses.toString()), statuses);
+  
+      // Define the new application status
+      const applicationStatus = {
+        index: applicationStatusBitMapIndex,
+        statusRow: newState,
+      };
+  
+      // Send the transaction to update application statuses
+      const updateTx = await contract.setApplicationStatuses([applicationStatus]);
+      await updateTx.wait();
+  
+      console.log("✅ Application statuses updated: ", updateTx.hash);
+  
+      // Verify the update by checking the new application statuses bitmap
+      const updatedStatuses = await contract.applicationStatusesBitMap(applicationStatusBitMapIndex);
+      if (updatedStatuses.toString() === newState.toString()) {
+        console.log("✅ Application statuses verified: ", updatedStatuses.toString());
+      } else {
+        console.error("❌ Application statuses verification failed: ", {
+          expected: newState.toString(),
+          actual: updatedStatuses.toString(),
+        });
+        throw new Error("Application statuses verification failed");
+      }
+    } catch (error) {
+      console.error("Failed to set application statuses:", error);
+      throw error;
+    }
   }
-}
