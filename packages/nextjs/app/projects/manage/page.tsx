@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import ProjectEvents from '../../../components/allo/ViewYourProjects';
 
-function CreateProjectPage() {
+function ManageProjectPage() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <Head>
@@ -15,4 +15,4 @@ function CreateProjectPage() {
   );
 }
 
-export default CreateProjectPage;
+export default ManageProjectPage;

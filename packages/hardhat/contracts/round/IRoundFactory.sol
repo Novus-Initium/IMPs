@@ -12,6 +12,7 @@ interface IRoundFactory {
 
     function create(
         bytes calldata encodedParameters,
-        address ownedBy
+        address ownedBy,
+        string calldata roundMetaPtrCID
     ) external returns (address);
 }
