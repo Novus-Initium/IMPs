@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ExploreActiveRounds = () => {
   const [activeRounds, setActiveRounds] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(String);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchActiveRounds = async () => {

@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 
-export async function handler(req, res) {
+export async function GET(req, res) {
   const PINATA_API_URL = 'https://api.pinata.cloud/data/pinList?status=pinned';
-  console.log('APIKEY: ', process.env.PINATA_API_KEY);
+  console.log('API KEY:', process.env.PINATA_API_KEY);
+
   try {
     const response = await axios.get(PINATA_API_URL, {
       headers: {
@@ -11,17 +12,16 @@ export async function handler(req, res) {
         pinata_secret_api_key: process.env.PINATA_SECRET_API_KEY,
       },
     });
-    console.log(response.data.rows)
-    const activeRounds = response.data.rows.map((pin) => {
-        return {
-        ipfsHash: pin.ipfs_pin_hash,
-        metadata: pin.metadata,
-      };
-    });
 
-    res.status(200).json(activeRounds);
+    const activeRounds = response.data.rows.map((pin) => ({
+      ipfsHash: pin.ipfs_pin_hash,
+      metadata: pin.metadata,
+    }));
+
+    return NextResponse.json(activeRounds);
+    // return new Response(JSON.stringify(activeRounds), { status: 200 });
   } catch (error) {
     console.error('Error fetching data from Pinata:', error);
-    res.status(500).json({ error: 'Failed to fetch data from Pinata' });
+    return NextResponse.json({ message: 'Failed to fetch data from pinata' }, { status: 500 });
   }
 }
