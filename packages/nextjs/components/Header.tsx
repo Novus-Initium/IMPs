@@ -28,7 +28,15 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/grants",
   },
   {
-    label: "Debug Contracts",
+    label: "Manager",
+    href: "/manager",
+  },
+  {
+    label: "About",
+    href: "/about",
+  },
+  {
+    label: "Contracts",
     href: "/debug",
     icon: <NewspaperIcon className="h-4 w-4" />,
   },
