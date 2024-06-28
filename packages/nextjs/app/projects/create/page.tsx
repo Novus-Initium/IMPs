@@ -9,7 +9,7 @@ function CreateProjectPage() {
         <title>Create a new project</title>
       </Head>
       <div className="bg-teal-600 shadow-md rounded-lg p-1 max-w-lg w-full">
-        <h1 className="text-2xl font-bold mb-2 text-center text-secondary-200">Create a New Project</h1>
+        <h1 className="text-2xl font-bold mb-2 text-center text-yellow-100">Create a New Project</h1>
         <CreateProjectForm />
       </div>
     </div>

@@ -4,6 +4,8 @@ import Link from "next/link";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import {
+  BugAntIcon,
+  MagnifyingGlassIcon,
   BanknotesIcon,
   UserGroupIcon,
   BuildingLibraryIcon,
@@ -26,7 +28,7 @@ const Home: NextPage = () => {
             At IMPs we believe in the power of impact measurement. We are a community of developers, designers, and impact enthusiasts who are passionate about creating a better world. Our mission is to provide a platform for people to create, fund, and review impactful projects.
           </p>
           <Link href="/projects" passHref>
-            <button className="bg-base-500 hover:bg-base-300 text-white font-bold py-2 px-4 rounded">
+            <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
               Learn More About Our Projects
             </button>
           </Link>
@@ -46,7 +48,7 @@ const Home: NextPage = () => {
                   Create a mission and start making an impact.
                 </p>
                 <Link href="/projects/create" passHref>
-                  <button className="bg-secondary hover:bg-base text-white font-bold py-2 px-4 rounded w-full">
+                  <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">
                     Start a Mission
                   </button>
                 </Link>
@@ -62,7 +64,7 @@ const Home: NextPage = () => {
                   Fund a round and support impactful projects.
                 </p>
                 <Link href="/debug" passHref>
-                  <button className="bg-base-500 hover:bg-base-700 text-white font-bold py-2 px-4 rounded w-full">
+                  <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">
                     Fund a Round
                   </button>
                 </Link>
@@ -78,7 +80,7 @@ const Home: NextPage = () => {
                   Review all donations and track the impact.
                 </p>
                 <Link href="/debug" passHref>
-                  <button className="bg-base-500 hover:bg-base-700 text-white font-bold py-2 px-4 rounded w-full">
+                  <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded w-full">
                     Review Donations
                   </button>
                 </Link>
