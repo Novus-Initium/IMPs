@@ -32,8 +32,8 @@ export const Footer = () => {
             )}
             {isLocalNetwork && (
               <>
-                <Link href="/blockexplorer" passHref className="btn btn-secondary-300 btn-sm font-normal gap-1 rounded-md">
-                  <MagnifyingGlassIcon className="h-4 w-4" />
+                <Link href="/blockexplorer" passHref className="btn btn-secondary-300 btn-sm font-sm gap-1 rounded-md">
+                  <MagnifyingGlassIcon className="h-3 w-3" />
                   <span>Block Explorer</span>
                 </Link>
               </>

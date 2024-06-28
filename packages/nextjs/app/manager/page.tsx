@@ -8,7 +8,7 @@ import { BugAntIcon, MagnifyingGlassIcon, BanknotesIcon, UserGroupIcon, Building
 const Home: NextPage = () => {
   return (
     <>
-      <div className="flex items-center flex-col flex-grow pt-2 bg-secondary">
+      <div className="glass flex items-center flex-col flex-grow pt-2 bg-secondary">
         <div className="px-5">
           <h1 className="text-center">
             <span className="block text-2xl mb-2 text-yellow-100">Impact Measurement Protocols</span>
