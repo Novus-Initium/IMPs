@@ -134,7 +134,7 @@ const CreateProjectForm = () => {
         <button
           type="submit"
           disabled={isMining}
-          className="w-full max-w-xs py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-base-300 hover:bg-base-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-base-500"
+          className="w-full max-w-xs py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-base-500"
         >
           {isMining ? 'Creating Project...' : 'Create Project'}
         </button>
