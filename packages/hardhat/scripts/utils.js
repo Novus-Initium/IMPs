@@ -1,5 +1,5 @@
-const { AbiCoder } = require("ethers");
-const dotenv = require("dotenv");
+import { AbiCoder, ethers } from "ethers";
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ dotenv.config();
  * @param params
  * @returns {string}
  */
-const encodeProgramParameters = (params) => {
+export const encodeProgramParameters = (params) => {
   const abiCoder = new AbiCoder();
   return abiCoder.encode(
     ["tuple(uint256 protocol, string pointer)", "address[]", "address[]"],
@@ -24,7 +24,7 @@ const encodeProgramParameters = (params) => {
  * @returns {string}
  */
 
-  const encodeRoundParameters = (params) => {
+  export const encodeRoundParameters = (params) => {
     const abiCoder = new AbiCoder();
     return abiCoder.encode(
       [
@@ -47,7 +47,7 @@ const encodeProgramParameters = (params) => {
  * @param params
  * @returns {string}
  */
-const encodeMerkleUpdateDistributionParameters = (params) => {
+export const encodeMerkleUpdateDistributionParameters = (params) => {
   const abiCoder = new AbiCoder();
   return abiCoder.encode(
     [
@@ -61,7 +61,7 @@ const encodeMerkleUpdateDistributionParameters = (params) => {
 /**
  * Asserts that environment variables are set as expected.
  */
-const assertEnvironment = () => {
+export const assertEnvironment = () => {
   if (!process.env.DEPLOYER_PRIVATE_KEY) {
     console.error("Please set your DEPLOYER_PRIVATE_KEY in a .env file");
   }
@@ -69,46 +69,3 @@ const assertEnvironment = () => {
     console.error("Please set your INFURA_ID in a .env file");
   }
 }
-
-const getABI = (networkName, contractName) => {
-  try {
-    const abiFile = require(`../deployments/${networkName}/${contractName}.json`);
-    console.log(abiFile)
-    if (!abiFile.address) {
-      throw new Error(`Address not found for ${contractName} on network ${networkName}`);
-    }
-    return { abi: abiFile.abi, address: abiFile.address };
-  } catch (error) {
-    throw new Error(`ABI for ${contractName} on network ${networkName} not found`);
-  }
-};
-
-const chainIdToNetworkName = {
-  "1": "mainnet",
-  "4": "rinkeby",
-  "42": "kovan",
-  "137": "polygon",
-  "31337": "localhost",
-};
-
-const getNetworkName = async (provider) => {
-  try {
-    const network = await provider.getNetwork();
-    const chainId = network.chainId.toString();
-    const networkName = chainIdToNetworkName[chainId] || "localhost";
-    if (!networkName) throw new Error(`Network name for chain ID ${chainId} not found`);
-    return networkName;
-  } catch (error) {
-    console.error(`Failed to get network name: ${error.message}`);
-    throw error;
-  }
-};
-
-module.exports = {
-  encodeProgramParameters,
-  encodeRoundParameters,
-  encodeMerkleUpdateDistributionParameters,
-  assertEnvironment,
-  getABI,
-  getNetworkName
-};

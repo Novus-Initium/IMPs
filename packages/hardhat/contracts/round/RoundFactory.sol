@@ -47,8 +47,7 @@ contract RoundFactory is IRoundFactory, OwnableUpgradeable {
   event RoundCreated(
     address indexed roundAddress,
     address indexed ownedBy,
-    address indexed roundImplementation,
-    string roundMetaPtrCID
+    address indexed roundImplementation
   );
 
   /// @notice constructor function which ensure deployer is set as owner
@@ -95,8 +94,7 @@ contract RoundFactory is IRoundFactory, OwnableUpgradeable {
    */
   function create(
     bytes calldata encodedParameters,
-    address ownedBy,
-    string calldata roundMetaPtrCID
+    address ownedBy
   ) external returns (address) {
 
     nonce++;
@@ -107,7 +105,7 @@ contract RoundFactory is IRoundFactory, OwnableUpgradeable {
     bytes32 salt = keccak256(abi.encodePacked(msg.sender, nonce));
     address clone = ClonesUpgradeable.cloneDeterministic(roundImplementation, salt);
 
-    emit RoundCreated(clone, ownedBy, payable(roundImplementation),roundMetaPtrCID);
+    emit RoundCreated(clone, ownedBy, payable(roundImplementation));
 
     IRoundImplementation(payable(clone)).initialize(
       encodedParameters,
