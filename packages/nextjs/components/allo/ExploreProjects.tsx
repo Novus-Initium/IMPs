@@ -62,7 +62,14 @@ const ProjectMetadataComponent = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading... ... ...<span class="loading loading-spinner text-primary"></span>
+  <span class="loading loading-spinner text-secondary"></span>
+  <span class="loading loading-spinner text-accent"></span>
+  <span class="loading loading-spinner text-neutral"></span>
+  <span class="loading loading-spinner text-info"></span>
+  <span class="loading loading-spinner text-success"></span>
+  <span class="loading loading-spinner text-warning"></span>
+  <span class="loading loading-spinner text-error"></span></p>;
   if (error) return <p>{error}</p>;
 
   return (

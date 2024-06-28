@@ -24,7 +24,7 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row gap-2 pointer-events-auto">
             {nativeCurrencyPrice > 0 && (
               <div>
-                <div className="btn btn-primary btn-sm font-normal gap-1 cursor-auto rounded-md">
+                <div className="btn btn-secondary-300 btn-sm font-normal gap-1 cursor-auto rounded-md">
                   <CurrencyDollarIcon className="h-4 w-4" />
                   <span>{nativeCurrencyPrice.toFixed(2)}</span>
                 </div>
@@ -32,8 +32,8 @@ export const Footer = () => {
             )}
             {isLocalNetwork && (
               <>
-                <Link href="/blockexplorer" passHref className="btn btn-primary btn-sm font-normal gap-1 rounded-md">
-                  <MagnifyingGlassIcon className="h-4 w-4" />
+                <Link href="/blockexplorer" passHref className="btn btn-secondary-300 btn-sm font-sm gap-1 rounded-md">
+                  <MagnifyingGlassIcon className="h-3 w-3" />
                   <span>Block Explorer</span>
                 </Link>
               </>
