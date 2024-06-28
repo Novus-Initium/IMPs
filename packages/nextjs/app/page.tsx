@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         </div>
         <div className="flex-grow w-full mt-2 px-8 py-6">
           <div className="flex justify-center items-center gap-6 flex-col sm:flex-row">
-          <Link href="/projects">
+          <Link href="/projects" passHref>
           <button className="hover:bg-base-100 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-transform duration-200 hover:-translate-y-1 active:translate-y-0">
             <div className="flex flex-col bg-base-100 px-8 py-8 text-center items-center max-w-xs rounded-3xl">
             <h1 className="text-center">
