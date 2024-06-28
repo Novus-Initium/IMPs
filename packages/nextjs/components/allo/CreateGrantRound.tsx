@@ -12,6 +12,7 @@ import {getABI, getNetworkName} from "../../../hardhat/scripts/utils"
 import { setApplicationStatuses, ApplicationStatus } from "../../utils/allo/setApplicationStatus";
 import fetchRoundCreatedEvents from "../../utils/allo/fetchRoundCreatedEvents";
 import ethers from 'ethers';
+import { ScaffoldWriteContractVariables } from '~~/utils/scaffold-eth/contract';
 
 // Define AddressZero manually
 const AddressZero = '0x0000000000000000000000000000000000000000';
@@ -38,6 +39,7 @@ const CreateRoundForm: React.FC = () => {
   const [roundEndTime, setRoundEndTime] = useState<Date | null>(null);
   const [networkName, setNetworkName] = useState<string | null>(null);
   const { writeContractAsync, isMining } = useScaffoldWriteContract("RoundFactory");
+  const [roundAddress, setRoundAddress] = useState<string>("");
 
   useEffect(() => {
     const fetchOwnerAddress = async () => {
@@ -130,14 +132,15 @@ const CreateRoundForm: React.FC = () => {
         roundFeeAddress: roundFeeAddress,
         ownerAddress: ownerAddress,
         initRoles: initRoles,
+        roundAddress: "",
       };
 
       const roundMetaPtrCID = await handleUploadToPinata(roundMetadata);
       const applicationMetaPtrCID = await handleUploadToPinata(applicationMetadata);
 
       const initMetaPtr = {
-        roundMetaPtr: { protocol: 1, pointer: roundMetaPtrCID },
-        applicationMetaPtr: { protocol: 1, pointer: applicationMetaPtrCID },
+        roundMetaPtr: { protocol: BigInt(1), pointer: roundMetaPtrCID },
+        applicationMetaPtr: { protocol: BigInt(1), pointer: applicationMetaPtrCID },
       };
 
       const matchAmountParsed = parseUnits(matchAmount, 18);
@@ -169,15 +172,17 @@ const CreateRoundForm: React.FC = () => {
           { index: 2, status: ApplicationStatus.REJECTED },
           { index: 3, status: ApplicationStatus.CANCELED },
         ];
-  
+      
+        // Update the roundMetaData on IPFS and update the MetaPtr
         await setApplicationStatuses(provider, roundAddress, statuses);
+        setRoundAddress(roundAddress)
         notification.success("Application statuses set successfully");
+      
       });
       
       // Call the contract method
-      const tx = await contract.create(encodedParameters, validateAddress(ownerAddress));
+      const tx = await contract.create(encodedParameters, validateAddress(ownerAddress), roundMetaPtrCID);
       const receipt = await tx.wait();
-
       
       notification.success("Round created successfully");
 

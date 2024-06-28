@@ -1,8 +1,9 @@
+import { NextResponse } from 'next/server';
 import axios from 'axios';
 
-export default async function handler(req, res) {
+export async function handler(req, res) {
   const PINATA_API_URL = 'https://api.pinata.cloud/data/pinList?status=pinned';
-  
+  console.log('APIKEY: ', process.env.PINATA_API_KEY);
   try {
     const response = await axios.get(PINATA_API_URL, {
       headers: {
