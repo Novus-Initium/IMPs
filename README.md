@@ -1,6 +1,9 @@
 # Imps - Impact Measurement Protocols
 
-🤖 Built using Scaffold-Eth-2 
+A reputation system embedded within a grants stack application, that allows donors and funders able to vote on a grantees impact through an attestation. 
+Scaffold-Eth-2 Developer friendly grant stack template with custom strategies using SE2 to streamline the process of creating templates and custom stacks more easily
+
+Built using Scaffold-Eth-2, inspiration from Allov1.
 
 ## Requirements
 
@@ -43,7 +46,7 @@ Visit your app on: `http://localhost:3000`. You can interact with your smart con
 
 ⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, AlloV2, EAS, ERC1155 Hypercerts and more. 
 
-# Features
+# Features and Contract
 
 User Profiles and Identity Management
 
