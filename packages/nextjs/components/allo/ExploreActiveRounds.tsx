@@ -1,39 +1,85 @@
-"use client";
+
+// const ipfsHash = "QmSoa7SDiNXmNLU34nHKwUchZdfgeqpDhtj8jzcHh4upaW";
+// const response = await fetch(`/api/ipfs/${ipfsHash}`);
+// const data = await response.json()
+"use client"
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { ethers } from 'ethers';
+import { getABI,getNetworkName } from '../../../hardhat/scripts/utils.js'; // Update with the correct path
 
 const ExploreActiveRounds = () => {
-  const [activeRounds, setActiveRounds] = useState<any[]>([]);
+  const [rounds, setRounds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchActiveRounds = async () => {
+    const fetchRounds = async () => {
       try {
-        const response = await axios.get('/api/getActiveRounds');
-        setActiveRounds(response.data);
+        // Initialize provider using MetaMask
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        await provider.send('eth_requestAccounts', []); // Request account access
+
+        const roundFactory = getABI(await getNetworkName(provider), 'RoundFactory');
+        const contract = new ethers.Contract(roundFactory.address, roundFactory.abi, provider);
+
+        // Fetch events directly from the contract
+        const filter = contract.filters.RoundCreated();
+        const events = await contract.queryFilter(filter);
+        
+        const roundsMapping: Record<string, string> = events.reduce((acc: RoundEvents, event: any) => {
+          acc[event.args[3]] = event.args[0]; // Map roundAddress to roundMetaPtrCID
+          return acc;
+        }, {});
+
+        // iterate through all created rounds and retrieve metadata
+        // from ipfs using the roundMetaPtrCID
+        const details = await Promise.all(
+          Object.keys(roundsMapping).map(async (ipfsHash) => {
+            try {
+              const response = await fetch(`/api/getPinata/${ipfsHash}`);
+              if (!response.ok) throw new Error('Failed to fetch data');
+              const data = await response.json();
+              return { ipfsHash, ...data };
+            } catch (err) {
+              console.error(`Error fetching data for ${ipfsHash}:`, err);
+              return { ipfsHash, error: 'Failed to fetch data' };
+            }
+          })
+        );
+
+        // Filter active rounds based on current time
+        const currentTime = Math.floor(Date.now() / 1000);
+        const active = details.filter((round) => {
+          return (
+            !round.error &&
+            round.roundStartTime <= currentTime &&
+            round.roundEndTime >= currentTime
+          );
+        });
+
+        setRounds(active)
+        console.log(active);
       } catch (error: any) {
-        setError('Failed to fetch active rounds');
+        console.error(error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchActiveRounds();
+    fetchRounds();
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
       <h1>Explore Active Rounds</h1>
       <ul>
-        {activeRounds.map((round) => (
-          <li key={round.ipfsHash}>
-            <h2>IPFS Hash: {round.ipfsHash}</h2>
-            <p>Metadata: {round.metadata.name}</p>
-            {/* Add more metadata fields as necessary */}
+        {Object.entries(rounds).map(([roundAddress, roundMetaPtrCID]) => (
+          <li key={roundAddress}>
+            <p>Round Address: {roundAddress}</p>
+            <p>MetaPtr CID: {roundMetaPtrCID}</p>
           </li>
         ))}
       </ul>

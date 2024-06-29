@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
-import { BrowserProvider, Contract, parseUnits, getAddress, isAddress, AbiCoder } from 'ethers';
+import { BrowserProvider, Contract, parseUnits, getAddress, isAddress, AbiCoder, Interface } from 'ethers';
 import { encodeRoundParameters } from "../../../hardhat/scripts/utils";
 import {getABI, getNetworkName} from "../../../hardhat/scripts/utils"
 import { setApplicationStatuses, ApplicationStatus } from "../../utils/allo/setApplicationStatus";
@@ -23,6 +23,7 @@ const chainIdToNetworkName: { [key: string]: string } = {
   "42": "kovan",
   "137": "polygon",
   "31337": "localhost",
+  "11155111": "sepolia"
 };
 
 const CreateRoundForm: React.FC = () => {
@@ -93,7 +94,11 @@ const CreateRoundForm: React.FC = () => {
       const provider = new BrowserProvider((window as any).ethereum);
       const signer = await provider.getSigner();
       const roundFactory = getABI(networkName, "RoundFactory");
+      console.log('Network Name', networkName)
       const contract = new Contract(roundFactory.address, roundFactory.abi, signer) as unknown as Contract & { interface: Interface };
+      console.log('Round Factory Address: ',roundFactory.address)
+      console.log('Round Factory ABI: ',roundFactory.abi)
+      console.log('Contract: ',contract);
       const votingStrategyFactory = getABI(networkName, "QuadraticFundingVotingStrategyFactory");
       const payoutStrategyFactory = getABI(networkName, "MerklePayoutStrategyFactory");
 
@@ -164,7 +169,7 @@ const CreateRoundForm: React.FC = () => {
       // Log encoded parameters for debugging
       console.log('Encoded Parameters:', encodedParameters);
 
-      contract.on("RoundCreated", async (roundAddress, ownedBy, roundImplementation) => {
+      contract.on("RoundCreated", async (roundAddress, ownedBy, roundImplementation, roundMetaPtrCID) => {
         console.log(`Round created at address: ${roundAddress}`);
         const statuses = [
           { index: 0, status: ApplicationStatus.PENDING },
@@ -189,6 +194,7 @@ const CreateRoundForm: React.FC = () => {
 
     } catch (error: any) {
       console.error('Contract call failed:', error);
+      console.error('Error Details:', JSON.stringify(error, null, 2));
       notification.error(`Failed to create round: ${error.message}`);
     }
   };
