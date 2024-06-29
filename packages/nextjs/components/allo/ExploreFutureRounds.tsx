@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
-import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js'; // Update with the correct path
+import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
+import {applyToRound} from "../../utils/allo/applyToRound"
 import "../../styles/ExploreFutureRounds.css";
 import parsePointer from "../../utils/allo/parsePointer"
+
 type ProjectMetadata = {
   id: number;
   metadata: {
@@ -18,7 +20,7 @@ const ExploreFutureRounds = () => {
   const [projects, setProjects] = useState<ProjectMetadata[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const [provider] = useState(new ethers.BrowserProvider(window.ethereum));
   // Hook to read all projects
   const { data: projectsData, error: projectsError } = useScaffoldReadContract({
     contractName: 'ProjectRegistry',
@@ -47,9 +49,10 @@ const ExploreFutureRounds = () => {
   }, [projectsData, projectsError]);
 
   useEffect(() => {
+
     const fetchRounds = async () => {
       try {
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        // const provider = new ethers.BrowserProvider(window.ethereum);
         await provider.send('eth_requestAccounts', []); // Request account access
 
         const roundFactory = getABI(await getNetworkName(provider), 'RoundFactory');
@@ -59,7 +62,7 @@ const ExploreFutureRounds = () => {
         const events = await contract.queryFilter(filter);
 
         const roundsMapping: { [key: string]: string } = events.reduce((acc: { [key: string]: string }, event: any) => {
-          acc[event.args[3]] = event.args[0]; // Map roundAddress to roundMetaPtrCID
+          acc[event.args[3]] = event.args[0]; // Map roundMetaPtrCID to roundAddress
           return acc;
         }, {});
 
@@ -69,7 +72,7 @@ const ExploreFutureRounds = () => {
               const response = await fetch(`/api/getPinata/${ipfsHash}`);
               if (!response.ok) throw new Error('Failed to fetch data');
               const data = await response.json();
-              return { ipfsHash, ...data };
+              return { ipfsHash, ...data, address: roundsMapping[ipfsHash] };
             } catch (err) {
               console.error(`Error fetching data for ${ipfsHash}:`, err);
               return { ipfsHash, error: 'Failed to fetch data' };
@@ -79,16 +82,20 @@ const ExploreFutureRounds = () => {
 
         const currentTime = new Date().toISOString();
         const future = details.filter((round) => {
-          const keyValues = round.options.metadata.keyvalues;
-          const applicationsStartTime = keyValues.applicationsStartTime;
-          const applicationsEndTime = keyValues.applicationsEndTime;
+        const keyValues = round.options.metadata.keyvalues;
+        const applicationsStartTime = keyValues.applicationsStartTime;
+        const applicationsEndTime = keyValues.applicationsEndTime;
 
           return (
             !round.error &&
             applicationsStartTime <= currentTime &&
             applicationsEndTime >= currentTime
           );
-        }).map((round) => round.options.metadata.keyvalues);
+        }).map((round) => ({
+          ...round.options.metadata.keyvalues,
+          address: round.address // Add the address to the round data
+        }));
+  
 
         console.log('Future Rounds:', future);
 
@@ -106,7 +113,6 @@ const ExploreFutureRounds = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-  console.log(projects)
   return (
     <div className="explore-rounds-container">
       <h1>Explore Future Rounds</h1>
@@ -132,7 +138,17 @@ const ExploreFutureRounds = () => {
                         const pointerData = parsePointer(project.metadata.pointer);
                         return (
                           <li key={project.id}>
-                            <a onClick={() => console.log(`Applying ${pointerData.name || `Project ${project.id}`} to ${round.name}`)}>
+                            <a
+                              onClick={async () => {
+                                console.log(`Applying ${pointerData.name || `Project ${project.id}`} to ${round.name}`);
+                                try {
+                                  await applyToRound(provider, round.address.toString(), project.id, project.metadata.pointer);
+                                  console.log(`Successfully applied ${pointerData.name || `Project ${project.id}`} to ${round.name}`);
+                                } catch (error) {
+                                  console.error("Error applying to round:", error);
+                                }
+                              }}
+                            >
                               {pointerData.name || `Project ${project.id}`}
                             </a>
                           </li>
