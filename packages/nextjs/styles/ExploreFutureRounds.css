@@ -9,11 +9,16 @@
     margin-bottom: 20px;
   }
   
+
   .rounds-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px; /* Adjusts space between cards */
     padding: 20px;
+  }
+
+  .card {
+    margin: 0 auto;
   }
   
   .round-pane {
@@ -33,12 +38,12 @@
   h2 {
     margin-bottom: 10px;
     font-size: 18px;
-    color: #333;
+    color: #ffffff;
   }
   
   p {
     margin: 5px 0;
-    color: #555;
+    color: #ffffff;
   }
   
   button {

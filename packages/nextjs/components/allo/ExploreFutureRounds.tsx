@@ -1,13 +1,50 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
 import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js'; // Update with the correct path
-import '../../styles/ExploreFutureRounds.css'; // Ensure you have a corresponding CSS file
+import "../../styles/ExploreFutureRounds.css";
+import parsePointer from "../../utils/allo/parsePointer"
+type ProjectMetadata = {
+  id: number;
+  metadata: {
+    protocol: string;
+    pointer: string;
+  };
+};
 
 const ExploreFutureRounds = () => {
   const [futureRounds, setFutureRounds] = useState<any[]>([]);
+  const [projects, setProjects] = useState<ProjectMetadata[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // Hook to read all projects
+  const { data: projectsData, error: projectsError } = useScaffoldReadContract({
+    contractName: 'ProjectRegistry',
+    functionName: 'getAllProjects',
+  });
+
+  useEffect(() => {
+    // Fetch projects
+    if (projectsError) {
+      setError(projectsError.message);
+      setLoading(false);
+      return;
+    }
+
+    if (projectsData) {
+      console.log('Projects Data:', projectsData);
+      setProjects(projectsData.map((project: any) => ({
+        id: Number(project.id),
+        metadata: {
+          protocol: project.metadata.protocol.toString(),
+          pointer: project.metadata.pointer,
+        },
+      })));
+      setLoading(false);
+    }
+  }, [projectsData, projectsError]);
 
   useEffect(() => {
     const fetchRounds = async () => {
@@ -20,12 +57,11 @@ const ExploreFutureRounds = () => {
 
         const filter = contract.filters.RoundCreated();
         const events = await contract.queryFilter(filter);
-        
+
         const roundsMapping: { [key: string]: string } = events.reduce((acc: { [key: string]: string }, event: any) => {
           acc[event.args[3]] = event.args[0]; // Map roundAddress to roundMetaPtrCID
           return acc;
         }, {});
-
 
         const details = await Promise.all(
           Object.keys(roundsMapping).map(async (ipfsHash) => {
@@ -46,7 +82,7 @@ const ExploreFutureRounds = () => {
           const keyValues = round.options.metadata.keyvalues;
           const applicationsStartTime = keyValues.applicationsStartTime;
           const applicationsEndTime = keyValues.applicationsEndTime;
-      
+
           return (
             !round.error &&
             applicationsStartTime <= currentTime &&
@@ -54,12 +90,12 @@ const ExploreFutureRounds = () => {
           );
         }).map((round) => round.options.metadata.keyvalues);
 
-        console.log(future);
+        console.log('Future Rounds:', future);
 
         setFutureRounds(future);
       } catch (error: any) {
         console.error(error);
-        setError(null);
+        setError('Error loading rounds');
       } finally {
         setLoading(false);
       }
@@ -70,7 +106,7 @@ const ExploreFutureRounds = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
-
+  console.log(projects)
   return (
     <div className="explore-rounds-container">
       <h1>Explore Future Rounds</h1>
@@ -79,23 +115,39 @@ const ExploreFutureRounds = () => {
           <p>No future rounds available.</p>
         ) : (
           futureRounds.map((round, index) => (
-            <div key={index} className="round-pane">
-              <h2>{round.name}</h2>
-              <p><strong>Description:</strong> {round.description}</p>
-              <p><strong>Start Time:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
-              <p><strong>End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
-              {/* <button onClick={() => applyToRound(round.ipfsHash)}>Apply</button> */}
+            <div key={index} className="card bg-base-100 w-96 shadow-xl">
+              <div className="card-body">
+                <h2 className="card-title">{round.name}</h2>
+                <p>{round.description}</p>
+                <p><strong>Application Start Time:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
+                <p><strong>Application End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
+                <p><strong>Round Start Time:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
+                <p><strong>Round End Time:</strong> {new Date(round.roundEndTime).toLocaleString()}</p> 
+                <p><strong>Match Amount (ETH):</strong> {round.matchAmount}</p>     
+                <div className="card-actions justify-end">
+                  <details className="dropdown">
+                    <summary className="btn m-1">Apply to Round</summary>
+                    <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                      {projects.map((project) => {
+                        const pointerData = parsePointer(project.metadata.pointer);
+                        return (
+                          <li key={project.id}>
+                            <a onClick={() => console.log(`Applying ${pointerData.name || `Project ${project.id}`} to ${round.name}`)}>
+                              {pointerData.name || `Project ${project.id}`}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </details>
+                </div>
+              </div>
             </div>
           ))
         )}
       </div>
     </div>
   );
-
-  // function applyToRound(roundAddress: string) {
-  //   // Logic to apply to the round
-  //   console.log(`Applying to round with IPFS hash: ${ipfsHash}`);
-  // }
 };
 
 export default ExploreFutureRounds;
