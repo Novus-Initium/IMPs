@@ -25,3 +25,4 @@ deployments/localhost
 
 # other
 temp
+packages/nextsjs/hardhat/contracts/deployedContracts.ts

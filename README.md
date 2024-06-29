@@ -7,6 +7,8 @@ Built using Scaffold-Eth-2, inspiration from Allov1.
 
 Testing
 
+TEST
+
 ## Requirements
 
 Before you begin, you need to install the following tools:

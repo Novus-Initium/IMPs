@@ -30,7 +30,7 @@ const config: HardhatUserConfig = {
       },
     },
   },
-  defaultNetwork: "localhost",
+  defaultNetwork: "sepolia",
   namedAccounts: {
     deployer: {
       // By default, it will take the first Hardhat account as the deployer
@@ -125,9 +125,10 @@ const config: HardhatUserConfig = {
       apiKey: `${etherscanApiKey}`,
     },
   },
-  sourcify: {
-    enabled: false,
-  },
+  // configuration for hardhat-gas-reporter plugin do we need this?
+  // sourcify: {
+  //   enabled: false,
+  // },
 };
 
 export default config;

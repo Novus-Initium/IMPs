@@ -6,8 +6,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
-import { BrowserProvider, Contract, parseUnits, getAddress, isAddress, AbiCoder } from 'ethers';
+import { BrowserProvider, Contract, parseUnits, getAddress, isAddress, AbiCoder, Interface } from 'ethers';
 import { encodeRoundParameters } from "../../../hardhat/scripts/utils";
+import {getABI, getNetworkName} from "../../../hardhat/scripts/utils"
+import { setApplicationStatuses, ApplicationStatus } from "../../utils/allo/setApplicationStatus";
 
 // Define AddressZero manually
 const AddressZero = '0x0000000000000000000000000000000000000000';
@@ -18,18 +20,7 @@ const chainIdToNetworkName: { [key: string]: string } = {
   "42": "kovan",
   "137": "polygon",
   "31337": "localhost",
-};
-
-const getABI = (networkName: string, contractName: string) => {
-  try {
-    const abiFile = require(`../../../hardhat/deployments/${networkName}/${contractName}.json`);
-    if (!abiFile.address) {
-      throw new Error(`Address not found for ${contractName} on network ${networkName}`);
-    }
-    return { abi: abiFile.abi, address: abiFile.address };
-  } catch (error) {
-    throw new Error(`ABI for ${contractName} on network ${networkName} not found`);
-  }
+  "11155111": "sepolia"
 };
 
 const CreateRoundForm: React.FC = () => {
@@ -46,6 +37,7 @@ const CreateRoundForm: React.FC = () => {
   const [roundEndTime, setRoundEndTime] = useState<Date | null>(null);
   const [networkName, setNetworkName] = useState<string | null>(null);
   const { writeContractAsync, isMining } = useScaffoldWriteContract("RoundFactory");
+  const [roundAddress, setRoundAddress] = useState<string>("");
 
   useEffect(() => {
     const fetchOwnerAddress = async () => {
@@ -99,7 +91,11 @@ const CreateRoundForm: React.FC = () => {
       const provider = new BrowserProvider((window as any).ethereum);
       const signer = await provider.getSigner();
       const roundFactory = getABI(networkName, "RoundFactory");
-      const contract = new Contract(roundFactory.address, roundFactory.abi, signer);
+      console.log('Network Name', networkName)
+      const contract = new Contract(roundFactory.address, roundFactory.abi, signer) as unknown as Contract & { interface: Interface };
+      console.log('Round Factory Address: ',roundFactory.address)
+      console.log('Round Factory ABI: ',roundFactory.abi)
+      console.log('Contract: ',contract);
       const votingStrategyFactory = getABI(networkName, "QuadraticFundingVotingStrategyFactory");
       const payoutStrategyFactory = getABI(networkName, "MerklePayoutStrategyFactory");
 
@@ -107,7 +103,6 @@ const CreateRoundForm: React.FC = () => {
         votingStrategyFactory: validateAddress(votingStrategyFactory.address),
         payoutStrategyFactory: validateAddress(payoutStrategyFactory.address),
       };
-
 
       const initRoundTime = {
         applicationsStartTime: applicationsStartTime ? Math.floor(applicationsStartTime.getTime() / 1000) : 0,
@@ -139,14 +134,15 @@ const CreateRoundForm: React.FC = () => {
         roundFeeAddress: roundFeeAddress,
         ownerAddress: ownerAddress,
         initRoles: initRoles,
+        roundAddress: "",
       };
 
       const roundMetaPtrCID = await handleUploadToPinata(roundMetadata);
       const applicationMetaPtrCID = await handleUploadToPinata(applicationMetadata);
 
       const initMetaPtr = {
-        roundMetaPtr: { protocol: 1, pointer: roundMetaPtrCID },
-        applicationMetaPtr: { protocol: 1, pointer: applicationMetaPtrCID },
+        roundMetaPtr: { protocol: BigInt(1), pointer: roundMetaPtrCID },
+        applicationMetaPtr: { protocol: BigInt(1), pointer: applicationMetaPtrCID },
       };
 
       const matchAmountParsed = parseUnits(matchAmount, 18);
@@ -170,13 +166,32 @@ const CreateRoundForm: React.FC = () => {
       // Log encoded parameters for debugging
       console.log('Encoded Parameters:', encodedParameters);
 
+      contract.on("RoundCreated", async (roundAddress, ownedBy, roundImplementation, roundMetaPtrCID) => {
+        console.log(`Round created at address: ${roundAddress}`);
+        const statuses = [
+          { index: 0, status: ApplicationStatus.PENDING },
+          { index: 1, status: ApplicationStatus.ACCEPTED },
+          { index: 2, status: ApplicationStatus.REJECTED },
+          { index: 3, status: ApplicationStatus.CANCELED },
+        ];
+      
+        // Update the roundMetaData on IPFS and update the MetaPtr
+        await setApplicationStatuses(provider, roundAddress, statuses);
+        setRoundAddress(roundAddress)
+        notification.success("Application statuses set successfully");
+      
+      });
+      
       // Call the contract method
-      const tx = await contract.create(encodedParameters, validateAddress(ownerAddress));
-      await tx.wait();
-
+      const tx = await contract.create(encodedParameters, validateAddress(ownerAddress), roundMetaPtrCID);
+      const receipt = await tx.wait();
+      
       notification.success("Round created successfully");
+
+
     } catch (error: any) {
       console.error('Contract call failed:', error);
+      console.error('Error Details:', JSON.stringify(error, null, 2));
       notification.error(`Failed to create round: ${error.message}`);
     }
   };
