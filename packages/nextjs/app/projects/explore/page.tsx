@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 import ExploreProjects from '../../../components/allo/ExploreProjects';
 import { notification } from '~~/utils/scaffold-eth';
 
-function CreateProjectPage() {
+function ExploreProjectPage() {
   const [address, setAddress] = useState('');
 
   useEffect(() => {
@@ -42,4 +42,4 @@ function CreateProjectPage() {
   );
 }
 
-export default CreateProjectPage;
+export default ExploreProjectPage;
