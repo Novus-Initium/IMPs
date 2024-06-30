@@ -6,6 +6,7 @@ import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
 import {applyToRound} from "../../utils/allo/applyToRound"
 import "../../styles/ExploreFutureRounds.css";
 import parsePointer from "../../utils/allo/parsePointer"
+import { notification } from "~~/utils/scaffold-eth";
 
 type ProjectMetadata = {
   id: number;
