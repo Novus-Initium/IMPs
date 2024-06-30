@@ -4,11 +4,21 @@ import { ethers, BrowserProvider, EventLog } from 'ethers';
 import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
 import parsePointer from "../../utils/allo/parsePointer";
 
-const RoundApplications = () => {
+interface Round {
+    name: string;
+    description: string;
+    address: string;
+    applicationsStartTime: number;
+    applicationsEndTime: number;
+    roundStartTime: number;
+    roundEndTime: number;
+  }
+
+const VoteOnProject = () => {
   const [futureRounds, setFutureRounds] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedRound, setSelectedRound] = useState(null);
+  const [selectedRound, setSelectedRound] = useState<Round | null>(null);
   const [networkName, setNetworkName] = useState(null);
   const [provider, setProvider] = useState<ethers.providers.BrowserProvider | null>(null);
   const [applicationsMapping, setApplicationsMapping] = useState<any>({});
@@ -59,19 +69,17 @@ const RoundApplications = () => {
           })
         );
         console.log('Round Details:', details);
-        // Filter rounds owned by the current user
+        // Filter rounds in round time
         const currentTime = new Date().toISOString();
         const future = details.filter((round) => {
           const keyValues = round.options.metadata.keyvalues;
-          const applicationsStartTime = keyValues.applicationsStartTime;
-          const applicationsEndTime = keyValues.applicationsEndTime;
+          const roundStartTime = keyValues.roundStartTime;
+          const roundEndTime = keyValues.roundEndTime;
 
           return (
             !round.error &&
-            applicationsStartTime <= currentTime &&
-            applicationsEndTime >= currentTime &&
-            
-            round.options.metadata.keyvalues.ownerAddress.toLowerCase() === userAddress.toString().toLowerCase()
+            roundStartTime <= currentTime &&
+            roundEndTime >= currentTime
           );
         }).map((round) => ({
           ...round.options.metadata.keyvalues,
@@ -93,7 +101,7 @@ const RoundApplications = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures fetchRounds runs once on component mount
 
-  const handleViewApplications = async (round: any) => {
+  const handleViewApplications = async (round: any): Promise<void> => {
     setSelectedRound(round); // Set selected round state
     const roundImplementationAbi = getABI(networkName, "RoundImplementation").abi;
     const roundContract = new ethers.Contract(round.address, roundImplementationAbi, provider);
@@ -137,26 +145,51 @@ const RoundApplications = () => {
   // Render the fetched rounds once loaded
   return (
     <div>
-      <h2>My Future Rounds</h2>
-      <ul>
-        {futureRounds.map((round, index) => (
-          <div key={index} className="card bg-base-100 w-96 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">{round.name}</h2>
-            <p><strong>Round Name: {round.name}</strong></p>
-            <p><strong>Round Description: {round.description}</strong></p>
-            <p><strong>Application Start Time:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
-            <p><strong>Application End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
-            <p><strong>Round Start Time:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
-            <p><strong>Round End Time:</strong> {new Date(round.roundEndTime).toLocaleString()}</p>
-            <button onClick={() => handleViewApplications(round)}>View Applications</button> 
-            {/* Display other round details as needed */}
-            </div>
-          </div>
-        ))}
-      </ul>
+      {!selectedRound ? (
+        <>
+          <h2>Active Rounds</h2>
+          <ul className="flex flex-wrap gap-4">
+            {futureRounds.map((round, index) => (
+              <div key={index} className="card bg-base-100 w-96 shadow-xl">
+                <div className="card-body">
+                  <h2 className="card-title">{round.name}</h2>
+                  <p><strong>Round Name:</strong> {round.name}</p>
+                  <p><strong>Round Description:</strong> {round.description}</p>
+                  <p><strong>Application Start Time:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
+                  <p><strong>Application End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
+                  <p><strong>Round Start Time:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
+                  <p><strong>Round End Time:</strong> {new Date(round.roundEndTime).toLocaleString()}</p>
+                  <button onClick={() => handleViewApplications(round)}>View Applications</button>
+                </div>
+              </div>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <>
+          <button onClick={() => setSelectedRound(null)}>Back to Rounds</button>
+          <h3>Applications for {selectedRound.name}</h3>
+          <ul className="flex flex-wrap gap-4">
+            {Object.keys(applicationsMapping).map((projectId) => {
+              const application = applicationsMapping[projectId];
+              return (
+                <div key={projectId} className="card bg-base-100 w-96 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">{application.name}</h2>
+                    <p><strong>Description:</strong> {application.description}</p>
+                    <p><strong>Website:</strong> <a href={application.website} target="_blank" rel="noopener noreferrer">{application.website}</a></p>
+                    <p><strong>Twitter:</strong> {application.twitterHandle}</p>
+                    <p><strong>GitHub Username:</strong> {application.githubUsername}</p>
+                    <p><strong>GitHub Organization:</strong> {application.githubOrganization}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
 
-export default RoundApplications;
+export default VoteOnProject;

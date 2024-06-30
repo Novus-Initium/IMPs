@@ -1,10 +1,10 @@
 import React from 'react';
-import ExploreActiveRounds from '../../../../components/allo/ExploreActiveRounds';
+import VoteOnProject from '../../../../components/allo/VoteOnProject';
 
 const ExploreActiveRoundsPage = () => {
   return (
     <div>
-      <ExploreActiveRounds />
+      <VoteOnProject />
     </div>
   );
 };
