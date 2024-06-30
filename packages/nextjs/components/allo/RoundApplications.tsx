@@ -1,12 +1,17 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { ethers, BrowserProvider } from 'ethers';
+import { ethers, BrowserProvider, EventLog } from 'ethers';
 import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
+import parsePointer from "../../utils/allo/parsePointer";
 
 const RoundApplications = () => {
   const [futureRounds, setFutureRounds] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedRound, setSelectedRound] = useState(null);
+  const [networkName, setNetworkName] = useState(null);
+  const [provider, setProvider] = useState<ethers.providers.BrowserProvider | null>(null);
+  const [applicationsMapping, setApplicationsMapping] = useState<any>({});
 
   useEffect(() => {
     const fetchRounds = async () => {
@@ -19,12 +24,14 @@ const RoundApplications = () => {
 
         // Initialize ethers provider and request account access
         const provider = new ethers.BrowserProvider(window.ethereum);
+        setProvider(provider);
         await provider.send('eth_requestAccounts', []);
         const signer = await provider.getSigner();
         const userAddress = await signer.getAddress();
         // Get RoundFactory ABI and contract instance
         const networkName = await getNetworkName(provider);
         const roundFactory = getABI(networkName, 'RoundFactory');
+        setNetworkName(networkName);
         const contract = new ethers.Contract(roundFactory.address, roundFactory.abi, provider);
 
         // Fetch all RoundCreated events
@@ -35,7 +42,7 @@ const RoundApplications = () => {
         const roundsMapping: { [key: string]: string } = events.reduce((acc: { [key: string]: string }, event: any) => {
             acc[event.args[3]] = event.args[0]; // Map roundMetaPtrCID to roundAddress
             return acc;
-          }, {});
+        }, {});
 
         // Fetch details for each round using IPFS hash
         const details = await Promise.all(
@@ -86,6 +93,38 @@ const RoundApplications = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures fetchRounds runs once on component mount
 
+  const handleViewApplications = async (round: any) => {
+    setSelectedRound(round); // Set selected round state
+    const roundImplementationAbi = getABI(networkName, "RoundImplementation").abi;
+    const roundContract = new ethers.Contract(round.address, roundImplementationAbi, provider);
+    const filter = roundContract.filters.NewProjectApplication();
+    const events = await roundContract.queryFilter(filter);
+    const applicationsMapping: { [key: string]: any } = {};
+
+    events.forEach((event) => {
+      if (event instanceof EventLog) {
+        const eventData = event.args; // Assuming args array contains necessary data
+
+        const metaData = parsePointer(eventData[2][1]);
+        const projectId = eventData[1]
+
+        applicationsMapping[projectId] = {
+          name: metaData["name"],
+          description: metaData["description"],
+          website: metaData["website"],
+          twitterHandle: metaData["twitterHandle"],
+          githubUsername: metaData["githubUsername"],
+          githubOrganization: metaData["githubOrganization"],
+        }
+      }
+    });
+
+    setApplicationsMapping(applicationsMapping);
+
+    console.log('application mapping: ', applicationsMapping);
+  };
+
+
   // Render loading state while fetching data
   if (loading) return <div>Loading...</div>;
 
@@ -101,12 +140,13 @@ const RoundApplications = () => {
           <div key={index} className="card bg-base-100 w-96 shadow-xl">
           <div className="card-body">
             <h2 className="card-title">{round.name}</h2>
-            <strong>Round Name: {round.name}</strong>
-            <strong>Round Description: {round.description}</strong>
-            <strong>Application Start Time: {round.applicationsStartTime}</strong>
-            <strong>Application End Time: {round.applicationsEndTime}</strong>
-            <strong>Round Start Time: {round.roundStartTime}</strong>
-            <strong>Round End Time: {round.roundEndTime}</strong>
+            <p><strong>Round Name: {round.name}</strong></p>
+            <p><strong>Round Description: {round.description}</strong></p>
+            <p><strong>Application Start Time:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
+            <p><strong>Application End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
+            <p><strong>Round Start Time:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
+            <p><strong>Round End Time:</strong> {new Date(round.roundEndTime).toLocaleString()}</p>
+            <button onClick={() => handleViewApplications(round)}>View Applications</button> 
             {/* Display other round details as needed */}
             </div>
           </div>
