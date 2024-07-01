@@ -11,7 +11,7 @@ const Home: NextPage = () => {
     <>
       <div className="glass flex items-center flex-col flex-grow pt-3 bg-base-100">
       <Head>
-        <title>Manager</title>
+        <title>An Admin Station</title>
       </Head>
         <div className="px-5">
           <h1 className="text-center">
