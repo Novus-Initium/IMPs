@@ -121,7 +121,7 @@ const Home: NextPage = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="/blockexplore"className="tooltip" data-tip="Review Donations">
+                      <a href="/blockexplorer"className="tooltip" data-tip="Review Donations">
                         <DocumentMagnifyingGlassIcon className="h-8 w-8 fill-accent-content" />
                       </a>
                     </li>
