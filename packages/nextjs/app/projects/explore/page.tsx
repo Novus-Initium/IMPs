@@ -31,11 +31,11 @@ function CreateProjectPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen py-10 flex items-center justify-center">
       <Head>
         <title>Explore Projects</title>
       </Head>
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-lg w-full">
+      <div className="bg-base-100 shadow-md rounded-lg p-8 max-w-lg w-full">
         <ExploreProjects></ExploreProjects>
       </div>
     </div>
