@@ -15,7 +15,7 @@ const Home: NextPage = () => {
             <span className="block text-2xl text-secondary-200 font-bold">some hisDori(c) stuff</span>
           </h1>
           <div className="avatar justify-center flex py-4">
-            <div class="w-24 rounded-md">
+            <div className="w-24 rounded-md">
               <img src="/IMPsLogo.svg"/>
             </div>
           </div>
