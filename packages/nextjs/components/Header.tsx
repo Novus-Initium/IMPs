@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bars3Icon, NewspaperIcon } from "@heroicons/react/24/outline";
-import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
 type HeaderMenuLink = {
@@ -34,11 +34,6 @@ export const menuLinks: HeaderMenuLink[] = [
   {
     label: "About",
     href: "/about",
-  },
-  {
-    label: "Contracts",
-    href: "/debug",
-    icon: <NewspaperIcon className="h-4 w-4" />,
   },
 ];
 
@@ -119,7 +114,6 @@ export const Header = () => {
       </div>
       <div className="navbar-end flex-grow mr-4">
         <RainbowKitCustomConnectButton />
-        <FaucetButton />
       </div>
     </div>
   );
