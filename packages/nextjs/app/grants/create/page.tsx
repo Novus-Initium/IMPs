@@ -4,12 +4,12 @@ import CreateRoundForm from '../../../components/allo/CreateGrantRound';
 
 function CreateGrantPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="glass bg-base-100 min-h-screen flex items-center justify-center py-8">
       <Head>
-        <title>Create a new project</title>
+        <title>Create a new Round</title>
       </Head>
-      <div className="bg-secondary shadow-md rounded-lg p-2 max-w-lg w-full">
-        <h1 className="text-2xl font-bold mb-6 text-center">Create a Grant Round</h1>
+      <div className="bg-accent-content shadow-md rounded-lg px-8 py-4 mb-4 max-w-lg w-full">
+        <h1 className="text-2xl font-bold mb-6 text-center text-primary">Create a Grant Round</h1>
         <CreateRoundForm />
       </div>
     </div>
