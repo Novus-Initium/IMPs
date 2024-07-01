@@ -5,6 +5,7 @@
 :root,
 [data-theme] {
   background: oklch(var(--b2));
+  cursor: url('https://indigo-cautious-chinchilla-877.mypinata.cloud/ipfs/QmXGbD6CTvMWKqdHGEHAzmAju3ZxxkdzUVGpgXSYRntc5K') 9 9, auto;
 }
 
 body {
@@ -29,4 +30,5 @@ p {
 
 .btn.btn-ghost {
   @apply shadow-none;
+
 }
