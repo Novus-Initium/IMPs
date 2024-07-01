@@ -41,6 +41,20 @@ const encodeProgramParameters = (params) => {
     );
   }
 
+  const encodedVotes = (params) => {
+    const abiCoder = new AbiCoder();
+    return abiCoder.encode(
+      [
+        "address",
+        "uint256",
+        "address",
+        "bytes32",
+        "uint256",
+      ],
+      params
+    );
+  }
+
 /**
  * Encodes the parameters for the MerklePayoutStrategy.updateDistribution() function.
  *
@@ -111,5 +125,6 @@ module.exports = {
   encodeMerkleUpdateDistributionParameters,
   assertEnvironment,
   getABI,
-  getNetworkName
+  getNetworkName,
+  encodedVotes
 };
