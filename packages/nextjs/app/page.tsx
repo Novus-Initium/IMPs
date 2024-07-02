@@ -10,13 +10,22 @@ const Home: NextPage = () => {
   return (
     <>
       <div className="glass flex items-center flex-col flex-grow pt-3 bg-secondary-100">
-      <Head>
-        <title>Home</title>
-      </Head>
+        <Head>
+          <title>Home</title>
+        </Head>
         <div className="px-5">
           <h1 className="text-center">
             <span className="block text-3xl mb-2 secondary-100">Impact Measurement Protocols</span>
-            <span className="block text-2xl text-secondary-200 font-bold">Fund A Round and Find Out</span>
+            <span className="block text-2xl text-secondary-200 font-bold">
+              <div class="avatar">
+                <div class="w-8 rounded"><img src="/favicon.png"/>
+                </div>
+              </div>&nbsp;Fund A Round and Find Out&nbsp;
+              <div class="avatar">
+                <div class="w-8 rounded"><img src="IMPslogo.svg"/>
+                </div>
+              </div>
+            </span>
           </h1>
         </div>
         <div className="flex-grow w-full mt-2 px-8 py-6">
