@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { ethers, BrowserProvider, EventLog, Contract, hexlify, parseUnits, toUtf8Bytes, zeroPadValue } from 'ethers';
+import { ethers, BrowserProvider, EventLog, Contract, hexlify, toUtf8Bytes, zeroPadValue } from 'ethers';
 import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
 import parsePointer from "../../utils/allo/parsePointer";
-import {encodedVotes} from "../../../hardhat/scripts/utils";
+import {encodedVotes, encodeQFVotes} from "../../../hardhat/scripts/utils";
 import { useAccount, useClient } from 'wagmi';
 import deployedContracts from '../../contracts/deployedContracts'; // Adjust the import path as needed
 import { set } from 'nprogress';
-import {Hex, parseAbiParameters, encodeAbiParameters} from "viem"
+import {Hex, parseAbiParameters, encodeAbiParameters, parseUnits, zeroAddress} from "viem"
 
 interface Round {
     name: string;
@@ -148,38 +148,68 @@ const VoteOnProject = () => {
     console.log('application mapping: ', applicationsMapping);
   };
 
-  const handleDonate = async (projectId: string, round: Round, amount: any) => {
-    try{
 
-        const provider = new BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-
-        const donationAmount = parseUnits(amount.toString(),18);
-        const grantAddress = await fetchGrantAddress(projectId);
-        console.log("Project Id: ", projectId);
-        console.log('Grant Address:', grantAddress);
-        console.log("Amount:", amount);
-        console.log("Round token: ", round.token);
-        const projectIDBytes32 = zeroPadValue(toUtf8Bytes(projectId), 32);
-        const applicationIndex = parseUnits("0", 0); // Using parseUnits to match type
-
-        const params = [
-            round.token,
-            donationAmount,
-            grantAddress,
-            projectIDBytes32,
-            applicationIndex // Add a fifth element to the array
-        ];
-
-        const networkName = await getNetworkName(provider);
-        const roundContract = new ethers.Contract(round.address, getABI(networkName, "RoundImplementation").abi, signer);
-        const vote = encodedVotes(params);
-
-        await roundContract.vote([vote]);
-    } catch (err) {
-        console.error('Error donating to project:', err);
+async function getABIEtherscan(contractAddress: string) {
+    const url = `https://api-sepolia.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.ETHERSCAN_API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.status !== '1') {
+        throw new Error('Failed to fetch ABI');
     }
-};
+    return JSON.parse(data.result);
+}
+
+const handleDonate = async (projectId: string, round: Round, amount: any) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+  
+      const donationAmount = parseUnits(amount.toString(), 18);
+      const grantAddress = await fetchGrantAddress(projectId);
+      console.log("Project Id: ", projectId);
+      console.log('Grant Address:', grantAddress);
+      console.log("Amount:", amount);
+      console.log("Round token: ", round.token);
+      console.log("Donation Amount: ", donationAmount.toString());
+  
+      const projectIDBytes32 = zeroPadValue(toUtf8Bytes(projectId), 32);
+      const applicationIndex = 0; // Assuming applicationIndex is 0
+  
+      // Check wallet balance
+    //   const ethBalance = await provider.getBalance(signer.getAddress());
+    //   console.log("Wallet ETH Balance:", ethBalance.toString());
+    //   if (ethBalance.lt(parseUnits("0.01", 18))) { // Check if ETH balance is less than a small threshold (for gas fees)
+    //     throw new Error("Insufficient ETH balance for gas fees");
+    //   }
+  
+      // Check token balance using the ERC-20 ABI
+    //   const tokenContract = new ethers.Contract(round.token, ERC20_ABI, signer);
+      
+    //   const tokenBalance = await tokenContract.balanceOf(signer.getAddress());
+    //   console.log("Wallet Token Balance:", tokenBalance.toString());
+    //   if (tokenBalance.lt(donationAmount)) {
+    //     throw new Error("Insufficient token balance");
+    //   }
+  
+      // Encode the vote using the function from the test
+      const donations = [{
+        applicationIndex,
+        projectRegistryId: projectIDBytes32,
+        recipient: grantAddress,
+        amount: amount.toString(),
+      }];
+      const votes = encodeQFVotes({ address: round.token, decimals: 18 }, donations);
+  
+      const networkName = await getNetworkName(provider);
+      const roundContract = new ethers.Contract(round.address, getABI(networkName, "RoundImplementation").abi, signer);
+  
+      await roundContract.vote(votes);
+      console.log("Donation transaction successful");
+  
+    } catch (err) {
+      console.error('Error donating to project:', err);
+    }
+  };
 
 type DeployedContractsType = typeof deployedContracts;
 

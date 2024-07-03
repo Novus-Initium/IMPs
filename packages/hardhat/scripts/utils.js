@@ -1,4 +1,4 @@
-const { AbiCoder } = require("ethers");
+const { AbiCoder, getAddress, parseUnits } = require("ethers");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -53,6 +53,26 @@ const encodeProgramParameters = (params) => {
       ],
       params
     );
+  }
+
+
+  function encodeQFVotes(donationToken, donations) {
+    const abiCoder = new AbiCoder();
+
+    return donations.map((donation) => {
+      const vote = [
+        getAddress(donationToken.address),
+        parseUnits(donation.amount, donationToken.decimals),
+        getAddress(donation.recipient),
+        donation.projectRegistryId,
+        BigInt(donation.applicationIndex),
+      ];
+  
+      return abiCoder.encode(
+        ["address", "uint256", "address", "bytes32", "uint256"],
+        vote
+      );
+    });
   }
 
 /**
@@ -126,5 +146,6 @@ module.exports = {
   assertEnvironment,
   getABI,
   getNetworkName,
-  encodedVotes
+  encodedVotes,
+  encodeQFVotes
 };

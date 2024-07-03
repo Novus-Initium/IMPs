@@ -19,7 +19,7 @@ Before you begin, you need to install the following tools:
 1. Clone this repo & install dependencies
 
 ```
-git clone https://github.com/MekailTheMachine/imps
+git clone https://github.com/Novus-Initium/IMPs
 cd imps
 yarn install
 ```
