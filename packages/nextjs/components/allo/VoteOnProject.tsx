@@ -1,8 +1,13 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { ethers, BrowserProvider, EventLog } from 'ethers';
+import { ethers, BrowserProvider, EventLog, Contract, hexlify, toUtf8Bytes, zeroPadValue } from 'ethers';
 import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
 import parsePointer from "../../utils/allo/parsePointer";
+import {encodedVotes, encodeQFVotes} from "../../../hardhat/scripts/utils";
+import { useAccount, useClient } from 'wagmi';
+import deployedContracts from '../../contracts/deployedContracts'; // Adjust the import path as needed
+import { set } from 'nprogress';
+import {Hex, parseAbiParameters, encodeAbiParameters, parseUnits, zeroAddress} from "viem"
 
 interface Round {
     name: string;
@@ -12,16 +17,21 @@ interface Round {
     applicationsEndTime: number;
     roundStartTime: number;
     roundEndTime: number;
+    token: string;
   }
 
 const VoteOnProject = () => {
+  const { address } = useAccount();
   const [futureRounds, setFutureRounds] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedRound, setSelectedRound] = useState<Round | null>(null);
   const [networkName, setNetworkName] = useState(null);
   const [provider, setProvider] = useState<ethers.providers.BrowserProvider | null>(null);
-  const [applicationsMapping, setApplicationsMapping] = useState<any>({});
+  const [roundApplicationsMapping, setApplicationsMapping] = useState<any>({});
+//   const [roundContract, setRoundContract] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState<any>(null);
+//   const [grantAddress, setGrantAddress] = useState<any>(null);
 
   useEffect(() => {
     const fetchRounds = async () => {
@@ -103,19 +113,22 @@ const VoteOnProject = () => {
 
   const handleViewApplications = async (round: any): Promise<void> => {
     setSelectedRound(round); // Set selected round state
+    console.log('Selected Round:', round);
     const roundImplementationAbi = getABI(networkName, "RoundImplementation").abi;
     const roundContract = new ethers.Contract(round.address, roundImplementationAbi, provider);
+    
     const filter = roundContract.filters.NewProjectApplication();
     const events = await roundContract.queryFilter(filter);
     const applicationsMapping: { [key: string]: any } = {};
 
-    events.forEach((event) => {
-      if (event instanceof EventLog) {
-        const eventData = event.args; // Assuming args array contains necessary data
+    events.forEach((event: any) => {
 
+        const eventData = event.args; // Assuming args array contains necessary data
+        const parsedEvent = roundContract.interface.parseLog(event);
+
+        // TODO: Fix Project ID
         const metaData = parsePointer(eventData[2][1]);
-        const projectId = Number(eventData[1])
-        // const index = eventData[0][0];
+        const projectId = eventData.projectID[3]
         const applicationIndex: any = roundContract.applicationsIndexesByProjectID
 
         applicationsMapping[projectId] = {
@@ -125,14 +138,138 @@ const VoteOnProject = () => {
           twitterHandle: metaData["twitterHandle"],
           githubUsername: metaData["githubUsername"],
           githubOrganization: metaData["githubOrganization"],
+          token: metaData["token"],
         }
 
-      }
       setApplicationsMapping(applicationsMapping);
     });
 
 
     console.log('application mapping: ', applicationsMapping);
+  };
+
+
+async function getABIEtherscan(contractAddress: string) {
+    const url = `https://api-sepolia.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.ETHERSCAN_API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.status !== '1') {
+        throw new Error('Failed to fetch ABI');
+    }
+    return JSON.parse(data.result);
+}
+
+const handleDonate = async (projectId: string, round: Round, amount: any) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+  
+      const donationAmount = parseUnits(amount.toString(), 18);
+      const grantAddress = await fetchGrantAddress(projectId);
+      console.log("Project Id: ", projectId);
+      console.log('Grant Address:', grantAddress);
+      console.log("Amount:", amount);
+      console.log("Round token: ", round.token);
+      console.log("Donation Amount: ", donationAmount.toString());
+  
+      const projectIDBytes32 = zeroPadValue(toUtf8Bytes(projectId), 32);
+      const applicationIndex = 0; // Assuming applicationIndex is 0
+  
+      // Check wallet balance
+    //   const ethBalance = await provider.getBalance(signer.getAddress());
+    //   console.log("Wallet ETH Balance:", ethBalance.toString());
+    //   if (ethBalance.lt(parseUnits("0.01", 18))) { // Check if ETH balance is less than a small threshold (for gas fees)
+    //     throw new Error("Insufficient ETH balance for gas fees");
+    //   }
+  
+      // Check token balance using the ERC-20 ABI
+    //   const tokenContract = new ethers.Contract(round.token, ERC20_ABI, signer);
+      
+    //   const tokenBalance = await tokenContract.balanceOf(signer.getAddress());
+    //   console.log("Wallet Token Balance:", tokenBalance.toString());
+    //   if (tokenBalance.lt(donationAmount)) {
+    //     throw new Error("Insufficient token balance");
+    //   }
+  
+      // Encode the vote using the function from the test
+      const donations = [{
+        applicationIndex,
+        projectRegistryId: projectIDBytes32,
+        recipient: grantAddress,
+        amount: amount.toString(),
+      }];
+      const votes = encodeQFVotes({ address: round.token, decimals: 18 }, donations);
+  
+      const networkName = await getNetworkName(provider);
+      const roundContract = new ethers.Contract(round.address, getABI(networkName, "RoundImplementation").abi, signer);
+  
+      await roundContract.vote(votes);
+      console.log("Donation transaction successful");
+  
+    } catch (err) {
+      console.error('Error donating to project:', err);
+    }
+  };
+
+type DeployedContractsType = typeof deployedContracts;
+
+const isValidChainId = (chainId: number): chainId is keyof DeployedContractsType => {
+    return chainId in deployedContracts;
+  };
+
+const fetchGrantAddress = async (projectId: string) => {
+    // console.log(selectedProject);
+
+    try {
+      const provider = new BrowserProvider(window.ethereum);
+      const network = await provider.getNetwork();
+      const chainId = Number(network.chainId);
+  
+      if (!isValidChainId(chainId)) {
+        throw new Error(`No deployment found for chain ID: ${chainId}`);
+      }
+  
+      const projectRegistryDetails = deployedContracts[chainId].ProjectRegistry;
+  
+      if (!projectRegistryDetails) {
+        throw new Error(`ProjectRegistry not deployed on chain ID: ${chainId}`);
+      }
+  
+      const projectRegistryContractAddress = projectRegistryDetails.address;
+      const projectRegistryAbi = projectRegistryDetails.abi;
+      console.log('Project Registry Address:', projectRegistryContractAddress);
+      const contract = new Contract(projectRegistryContractAddress, projectRegistryAbi, provider);
+      const filter = contract.filters.ProjectCreated();
+      const events = await contract.queryFilter(filter);
+      console.log('Events:', events);
+
+      for (const event of events) {
+        if (event instanceof EventLog) {
+            const parsedEvent = contract.interface.parseLog(event);
+            const eventData = event.args;
+            // console.log('Project Id: ',Number(projectId))
+            console.log('Project Id: ',Number(eventData[0]));
+            // console.log('Evennt Data: ', eventData)
+            if (Number(eventData[0]) === Number(projectId)) {
+                return eventData[1];
+            }
+        }
+    }
+    //   const owners = events.map((event) => {
+    //     if (event instanceof EventLog) {
+    //         const eventData = event.args;
+    //         console.log('eventdata type', eventData);
+    //         console.log('eventdata type', eventData[0]);
+    //         if (Number(eventData[0]) === Number(projectId)) {
+    //             return eventData[1];
+    //         }
+    //         return null;
+    //     }
+    //   }).filter(owner => owner !== null);
+    
+    } catch (err) {
+      console.error('Error fetching project events:', err);
+    }
   };
 
 
@@ -159,6 +296,8 @@ const VoteOnProject = () => {
                   <p><strong>Application End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
                   <p><strong>Round Start Time:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
                   <p><strong>Round End Time:</strong> {new Date(round.roundEndTime).toLocaleString()}</p>
+                  <p><strong>Token:</strong> {round.token}</p>
+
                   <button onClick={() => handleViewApplications(round)}>View Applications</button>
                 </div>
               </div>
@@ -170,8 +309,8 @@ const VoteOnProject = () => {
           <button onClick={() => setSelectedRound(null)}>Back to Rounds</button>
           <h3>Applications for {selectedRound.name}</h3>
           <ul className="flex flex-wrap gap-4">
-            {Object.keys(applicationsMapping).map((projectId) => {
-              const application = applicationsMapping[projectId];
+            {Object.keys(roundApplicationsMapping).map((projectId) => {
+              const application = roundApplicationsMapping[projectId];
               return (
                 <div key={projectId} className="card bg-base-100 w-96 shadow-xl">
                   <div className="card-body">
@@ -181,6 +320,16 @@ const VoteOnProject = () => {
                     <p><strong>Twitter:</strong> {application.twitterHandle}</p>
                     <p><strong>GitHub Username:</strong> {application.githubUsername}</p>
                     <p><strong>GitHub Organization:</strong> {application.githubOrganization}</p>
+                    <button 
+                      onClick={() =>  {
+                        setSelectedProject(projectId);
+                        const amount: any = prompt("Enter the amount in Ether:");
+                        handleDonate(projectId, selectedRound, amount);
+                    }} 
+                      className="mt-4 btn btn-primary"
+                    >
+                      Donate
+                    </button>
                   </div>
                 </div>
               );
