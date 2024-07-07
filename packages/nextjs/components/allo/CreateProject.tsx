@@ -11,7 +11,7 @@ const CreateProjectForm = () => {
   const [githubUsername, setGithubUsername] = useState('');
   const [githubOrganization, setGithubOrganization] = useState('');
   const { writeContractAsync, isMining } = useScaffoldWriteContract('ProjectRegistry');
-
+  const [grantAddress, setGrantAddress] = useState('');
   const handleCreateProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -21,6 +21,8 @@ const CreateProjectForm = () => {
     }
 
     try {
+      const address = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      setGrantAddress(address[0]);
       const metadata = `{
         "name": "${projectName}",
         "description": "${description}",

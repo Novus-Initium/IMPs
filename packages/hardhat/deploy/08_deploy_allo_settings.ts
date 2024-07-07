@@ -22,7 +22,12 @@ const deployAlloSettings: DeployFunction = async function (hre: HardhatRuntimeEn
     localhost: {
         protocolFeePercentage: 50, // Example: 0.5%
         protocolTreasury: process.env.HARDHAT_TREASURY_ADDRESS || "0x891D071510EdAC606519237f88C2a9F531fbFAbE"
+      },
+    doric: {
+        protocolFeePercentage: 50, // Example: 0.5%
+        protocolTreasury: process.env.HARDHAT_TREASURY_ADDRESS || "0x891D071510EdAC606519237f88C2a9F531fbFAbE"
       }
+
   };
 
   const networkParams = AlloSettingsParams[hre.network.name];
