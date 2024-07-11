@@ -14,7 +14,7 @@ Built using Scaffold-Eth-2 and inspired by Allo V1, IMPS makes it easier for dev
 - **Weighted Voting**: Vote weight is calculated based on the donor's contribution ratio to the project.
 - **Customizable Rounds**: Implement saved and custom round settings for simplified setup.
 - **Informational Tooltips**: Added explanations for contract functions.
-- **Streaming Functionality**: Implement streamlined (DCA-like) funding into QF rounds.
+- **Streaming Functionality**: Implement streamlined (DCA-like) funding into QF and SF rounds.
 - **SQF Integration**: Implement SQF features for donations beyond Allo V1.
 
 ## Mathematical Model
@@ -77,6 +77,7 @@ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
 - Custom Strategies: Manage fund allocation based on impact reports and votes.
 - Governance Mechanisms: Enhance transparency and accountability in capital allocation.
 
+``` 
 mermaid
 
     A[Donor/Funder] --> B[Registry Contract]
@@ -105,7 +106,7 @@ mermaid
     class B,E,G,I,K,N contracts;
     class D,F,H,J,L,M processes;
     class G data;
-
+```
 ## Future Goals
 
 - Implement saved and custom round settings for easier setup.
