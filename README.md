@@ -77,8 +77,7 @@ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
 - Custom Strategies: Manage fund allocation based on impact reports and votes.
 - Governance Mechanisms: Enhance transparency and accountability in capital allocation.
 
-``` 
-mermaid
+``` mermaid
 
     A[Donor/Funder] --> B[Registry Contract]
     C[Grantee] --> B
