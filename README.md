@@ -77,33 +77,25 @@ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
 - Custom Strategies: Manage fund allocation based on impact reports and votes.
 - Governance Mechanisms: Enhance transparency and accountability in capital allocation.
 
-```graph TD
-    A[Donor/Funder] --> B[Registry Contract]
-    C[Grantee] --> B
-    B --> D[Grant Creation]
-    D --> E[Grant Contract]
-    A --> |Funds| E
-    E --> F[Impact Reporting]
-    F --> |Uses| G[Hypercerts & EAS]
-    A --> |Reviews| F
-    A --> |Attests/Votes| H[Attestation System]
-    H --> I[Voting Contract]
-    I --> J[Score Calculation]
-    J --> |Influences| K[QF Pool]
-    K --> |Adjusts Funding| E
-    L[Custom Strategies] --> |Manages| K
-    M[Governance Mechanisms] --> |Oversees| L
-    N[Anchor Contract] --> |Executes| E
+```mermaid
+graph TD
+    Donor_Funder(Donor/Funder) -->|Funds| GrantContract(Grant Contract)
+    Donor_Funder -->|Contributes to| QFPool(QF Pool)
+    Grantee(Grantee) -->|Creates| Grants(Grants)
+    GrantContract -->|Allocates Funding to| Grants
+    QFPool -->|Supplements Grants With| Grants
+    Grants -->|Generates| ImpactReports(Impact Reports)
+    Donor_Funder -->|Reviews/Attests to| ImpactReports
+    ImpactReports -->|Influences| QFPool
 
-    classDef users fill:#f9d71c,stroke:#333,stroke-width:2px;
-    classDef contracts fill:#51d1f6,stroke:#333,stroke-width:2px;
-    classDef processes fill:#f9966b,stroke:#333,stroke-width:2px;
-    classDef data fill:#a1de93,stroke:#333,stroke-width:2px;
-
-    class A,C users;
-    class B,E,G,I,K,N contracts;
-    class D,F,H,J,L,M processes;
-    class G data;
+    classDef grants fill:#88d498,stroke:#333,stroke-width:2px;
+    classDef users fill:#4d908e,stroke:#333,stroke-width:2px;
+    classDef qfpool fill:#f6c667,stroke:#333,stroke-width:2px;
+    classDef impact fill:#f4acb7,stroke:#333,stroke-width:2px;
+    class Grantee,Donor_Funder users;
+    class GrantContract grants;
+    class QFPool qfpool;
+    class ImpactReports impact;
 ```
 
 ## Future Goals
