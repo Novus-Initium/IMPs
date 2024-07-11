@@ -77,26 +77,7 @@ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
 - Custom Strategies: Manage fund allocation based on impact reports and votes.
 - Governance Mechanisms: Enhance transparency and accountability in capital allocation.
 
-```mermaid
-graph TD
-    Donor_Funder(Donor/Funder) -->|Funds| GrantContract(Grant Contract)
-    Donor_Funder -->|Contributes to| QFPool(QF Pool)
-    Grantee(Grantee) -->|Creates| Grants(Grants)
-    GrantContract -->|Allocates Funding to| Grants
-    QFPool -->|Supplements Grants With| Grants
-    Grants -->|Generates| ImpactReports(Impact Reports)
-    Donor_Funder -->|Reviews/Attests to| ImpactReports
-    ImpactReports -->|Influences| QFPool
-
-    classDef grants fill:#88d498,stroke:#333,stroke-width:2px;
-    classDef users fill:#4d908e,stroke:#333,stroke-width:2px;
-    classDef qfpool fill:#f6c667,stroke:#333,stroke-width:2px;
-    classDef impact fill:#f4acb7,stroke:#333,stroke-width:2px;
-    class Grantee,Donor_Funder users;
-    class GrantContract grants;
-    class QFPool qfpool;
-    class ImpactReports impact;
-```
+(Insert Mermaid Diagram here and recreate to more accurately describe workflow)
 
 ## Future Goals
 
