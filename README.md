@@ -1,149 +1,121 @@
-# Imps - Impact Measurement Protocols
+# IMPS - Impact Measurement Protocols
 
-A reputation system embedded within a grants stack application, that allows donors and funders able to vote on a grantees impact through an attestation. 
-Scaffold-Eth-2 Developer friendly grant stack template with custom strategies using SE2 to streamline the process of creating templates and custom stacks more easily
+IMPS (Impact Measurement Protocols) is Ninit's first iteration of a custom Grant Stack application, leveraging Scaffold-Eth-2 and custom Allo V1 contracts. It aims to simplify the onboarding experience into web3 with Quadratic Funding (QF) rounds while providing additional resources and tooling for communities to subjectively measure impact under specific conditions with fairly weighted votes.
 
-Built using Scaffold-Eth-2, inspiration from Allov1.
+## Project Overview
 
-## Requirements
+IMPS is a subjective measurement system designed to analyze and assess impact, using that data to hold projects accountable for poor impact reporting or failure to deliver on promises. It's particularly useful with Streaming Quadratic Funding (SQF) and interesting to implement in direct single-funder (SF) donations outside of QF pools.
 
-Before you begin, you need to install the following tools:
+Built using Scaffold-Eth-2 and inspired by Allo V1, IMPS makes it easier for developers to fork and customize their own accountable funding mechanism or QF grant stack. This project is a more built-out and customized variation of our Scaffold-Grant-Stack application.
+
+### Key Features
+
+- **Impact Attestation**: Donors can attest to a project's impact with a revocable statement.
+- **Weighted Voting**: Vote weight is calculated based on the donor's contribution ratio to the project.
+- **Customizable Rounds**: Implement saved and custom round settings for simplified setup.
+- **Informational Tooltips**: Added explanations for contract functions.
+- **Streaming Functionality**: Implement streamlined (DCA-like) funding into QF rounds.
+- **SQF Integration**: Implement SQF features for donations beyond Allo V1.
+
+## Mathematical Model
+
+The overall weighted score of a project is calculated as follows:
+ProjectScore = Σ (VoterScore * (VoterContribution / TotalProjectFunding))
+Where:
+VoterScore: Individual voter's impact score (e.g., 1-10)
+VoterContribution: Amount contributed by the voter
+TotalProjectFunding: Total funding received by the project
+Copy
+## Getting Started
+
+### Requirements
 
 - [Node (>= v18.17)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
+- [Yarn (v1 or v2+)](https://yarnpkg.com/getting-started/install)
 - [Git](https://git-scm.com/downloads)
-1. Clone this repo & install dependencies
 
-```
+### Installation and Setup
+
+1. Clone the repository:
 git clone https://github.com/Novus-Initium/IMPs
 cd imps
 yarn install
-```
-
-2. Run a local network in the first terminal:
-
-```
+Copy
+2. Start a local network:
 yarn chain
-```
-
-This command starts a local EVM Network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
-
-3. On a second terminal, deploy the test contract:
-
-```
+Copy
+3. Deploy the test contract:
 yarn deploy
-```
-
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
-
-4. On a third terminal, start your NextJS app:
-
-```
+Copy
+4. Start the NextJS app:
 yarn start
-```
+Copy
+Visit `http://localhost:3000` to interact with your smart contract.
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract.
+## Technology Stack
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, AlloV2, EAS, ERC1155 Hypercerts and more. 
+Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
 
-# Features and Contract
+## Core Components
 
-User Profiles and Identity Management
+1. **User Profiles and Identity Management**
+- Registry Contract: Manages user profiles with specific roles and permissions.
+- Anchor Contracts: Securely manage interactions with external addresses and handle funds.
 
-Registry Contract: To create and manage user profiles (donors, funders, grantees) with specific roles and permissions.
-Anchor Contracts: Deployed for each profile to securely manage interactions with external addresses and handle funds.
-Grant Creation and Management
+2. **Grant Creation and Management**
+- Grant Contracts: Allow creation of grants, proposal submissions, and linking of impact reports.
 
-Grant Contracts: Allow grantees to create grants, submit proposals, and link impact reports and updates directly to their grants.
-Impact Reporting and Attestation
+3. **Impact Reporting and Attestation**
+- Impact Reports: Submitted using hypercert technology, verifiable through Ethereum Attestation Service (EAS).
+- Attestation System: Decentralized review system for report validation.
 
-Impact Reports: Grantees submit periodic impact reports using hypercert technology, which are verifiable through Ethereum Attestation Service (EAS).
-Attestation System: Donors and funders attest to the validity and effectiveness of these reports, creating a decentralized review system.
-Voting and Fund Allocation
+4. **Voting and Fund Allocation**
+- Voting Contracts: Enable voting on perceived impact of grants.
+- Quadratic Funding Pool: Adjusts fund distribution based on weighted votes.
 
-Voting Contracts: Enable donors and funders to vote on the perceived impact of grants based on submitted reports.
-Quadratic Funding Pool (QF Pool): Adjusts the distribution of funds to grants based on the weighted votes from donors and funders.
-Custom Strategies and Governance
+5. **Custom Strategies and Governance**
+- Custom Strategies: Manage fund allocation based on impact reports and votes.
+- Governance Mechanisms: Enhance transparency and accountability in capital allocation.
 
-Custom Strategies: Implement strategies within the Allo contract to manage fund allocation, incorporating feedback from impact reports and votes.
-Governance Mechanisms: Ensure transparency and accountability by providing tools for enhanced governance within capital allocation and impact reporting.
+mermaid
 
+    A[Donor/Funder] --> B[Registry Contract]
+    C[Grantee] --> B
+    B --> D[Grant Creation]
+    D --> E[Grant Contract]
+    A --> |Funds| E
+    E --> F[Impact Reporting]
+    F --> |Uses| G[Hypercerts & EAS]
+    A --> |Reviews| F
+    A --> |Attests/Votes| H[Attestation System]
+    H --> I[Voting Contract]
+    I --> J[Score Calculation]
+    J --> |Influences| K[QF Pool]
+    K --> |Adjusts Funding| E
+    L[Custom Strategies] --> |Manages| K
+    M[Governance Mechanisms] --> |Oversees| L
+    N[Anchor Contract] --> |Executes| E
 
-# Abstract
+    classDef users fill:#f9d71c,stroke:#333,stroke-width:2px;
+    classDef contracts fill:#51d1f6,stroke:#333,stroke-width:2px;
+    classDef processes fill:#f9966b,stroke:#333,stroke-width:2px;
+    classDef data fill:#a1de93,stroke:#333,stroke-width:2px;
 
-Poor social health, poverty, lack of social programs, and overall coordination lie at the roots of our inability to healthily progress as a species. Giving citizens more political power and insights into the inner mechanics of their social systems is now more possible than ever.
+    class A,C users;
+    class B,E,G,I,K,N contracts;
+    class D,F,H,J,L,M processes;
+    class G data;
 
-In our pursuit of enhancing community engagement, we must carefully consider the operating systems and models underpinning our communities and organizations. These systems, which have evolved over thousands of years, remain central to our collective existence. Yet, the opaque and arcane nature of many of these systems often undermines trust and inhibits meaningful community interaction. This opacity and lack of coordination can discourage engagement and make it difficult and inefficient to operate. With today’s technology, we have the power to mitigate many of the social issues described above, even litigatory behavior amongst HOAs and Homeowners, Non-profits, and more. To generate more trust, participation, and symbiosis within our underlying social infrastructures, we must focus on the development of our political infrastructures, underlying governance models, and approaches on bridging the two.
+## Future Goals
 
-## Objective
+- Implement saved and custom round settings for easier setup.
+- Add informational hover-overs to explain contract functions.
+- Implement streamlined funding into QF rounds with governance over unallocated funds.
+- Integrate SQF features for donations beyond Allo V1.
 
-Our goal is to close the transparency and accountability gaps in traditional public goods funding mechanisms. This will make funding more efficient and strengthen the bond between funders, donors, grantees, and their communities, fostering a sense of ownership, community, and purpose. We believe that this innovative approach can help increase public good funding and support important causes. We would like to provide tools and resources for enhanced governance within capital allocation and impact reporting.
+## About Us
 
-## How
+Our team consists of experienced developers and experts in the Political and DeFi space. With a shared history in working with non-profits and tracking federal grant funding, we are passionate about using technology for social good.
 
-This can be accomplished by integrating systems where grantees can link tangible proof of their work directly to their grants through hypercert technology, verifiable through EAS. With this data, we can begin to give donors the power to evaluate and vote on the effectiveness of fund utilization. If a grant receives negative feedback from a significant portion of its supporters, SQF and batch-based funding can be halted, encouraging grantees to maintain some level of transparency and community engagement. This democratized oversight mechanism not only pressures grantees to be more open but also empowers more individuals to confidently invest in their communities, leading to broader participation in funding initiatives that have a real impact.
+Crafted by Ninit.
 
-Within AlloV2 Custom strategies, we can alter the flow of streamline or batch-based Quadratic Funding. Donors and funders can separately review the impact reports within the grants they have contributed to and weight their votes on how impactful they feel the project currently is. These voted weights can have negative effects on the grantees' share of the QF pool, urging them to provide more impactful reports or to reach out to funders or donors to address their attestation and attempt a resolve.
-
-By integrating the Scaffold-Eth-2 SDK, we can allow any project or community to create their own custom funding strategy, questions, weights, and more. Abstracting the process of implementing custom strategies and deploying custom rounds with enhanced governance mechanisms will be an everlasting journey.
-
-## Overall Interaction
-
-1. Users create profiles in the `Registry` contract and associate their addresses with specific roles and permissions.
-2. Users, identified by their addresses and associated profiles, interact with the `Allo` contract to create pools, allocate funds, and manage pools.
-3. The `Allo` contract checks user profiles with the `Registry` to ensure that only authorized users perform certain actions.
-4. Strategies (inherited from `BaseStrategy`) within the `Allo` contract handle allocation, distribution, and management of funds based on specific logic.
-5. The `Anchor` contract allows for dynamic execution of arbitrary calls based on predefined conditions, often triggered by events in the `Allo` ecosystem.
-6. Together, these contracts create an ecosystem where users can manage and allocate funds according to various strategies while adhering to predefined permissions and conditions.
-
-## Visualization
-
-```mermaid
-graph TD
-    Donor_Funder(Donor/Funder) -->|Funds| GrantContract(Grant Contract)
-    Donor_Funder -->|Contributes to| QFPool(QF Pool)
-    Grantee(Grantee) -->|Creates| Grants(Grants)
-    GrantContract -->|Allocates Funding to| Grants
-    QFPool -->|Supplements Grants With| Grants
-    Grants -->|Generates| ImpactReports(Impact Reports)
-    Donor_Funder -->|Reviews/Attests to| ImpactReports
-    ImpactReports -->|Influences| QFPool
-
-    classDef grants fill:#88d498,stroke:#333,stroke-width:2px;
-    classDef users fill:#4d908e,stroke:#333,stroke-width:2px;
-    classDef qfpool fill:#f6c667,stroke:#333,stroke-width:2px;
-    classDef impact fill:#f4acb7,stroke:#333,stroke-width:2px;
-    class Grantee,Donor_Funder users;
-    class GrantContract grants;
-    class QFPool qfpool;
-    class ImpactReports impact;
-```
-
-About Us
-Our team consists of experienced developers and experts in the Political and DeFi space. With shared history in working with non-profits and tracking federal grants funding allocated to under-resourced communities, we are passionate about using technology for social good. We believe that IMPs has the potential to fill in the larger remaining gaps in public goods funding incentives within local communities. Crafted by Ninit.
-
-
-### Implementation Plan
-
-1. **Setup Scaffold-Eth-2 Environment**
-   - Configure development environment with Scaffold-Eth-2.
-   - Deploy initial contracts: Registry, Anchor, and basic Grant Contracts.
-
-2. **Develop and Integrate Impact Reporting System**
-   - Implement hypercerts for impact reports.
-   - Integrate custom attestation services to rate the impact on projects funded.
-
-3. **Voting and Feedback Mechanism**
-   - Develop Voting Contracts to allow donors and funders to vote on projects and their relative impact reports.
-   - Integrate voting results with QF Pool to adjust fund allocation dynamically.
-
-4. **Custom Strategies for Fund Allocation**
-   - Implement custom strategies within Allo Contract to manage fund distribution based on impact votes.
-   - Ensure strategies are flexible and customizable for different communities.
-
-5. **Governance and Transparency**
-   - Develop tools for enhanced governance within the platform.
-   - Ensure transparency in all transactions and interactions within the ecosystem.
-
-
-Special thanks to the Doric Foundation for sponsoring the development of this project.
