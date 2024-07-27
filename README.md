@@ -91,4 +91,4 @@ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
 Our team consists of experienced developers and experts in the Political and DeFi space. With a shared history in working with non-profits and tracking federal grant funding, we are passionate about using technology for social good.
 
 Crafted by Ninit.
-
+Git Test.
