@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { ethers, BrowserProvider, EventLog, Contract, hexlify, toUtf8Bytes, zeroPadValue } from 'ethers';
+import { ethers, BrowserProvider, EventLog, Contract, toUtf8Bytes, zeroPadValue } from 'ethers';
 import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
 import parsePointer from "../../utils/allo/parsePointer";
-import {encodedVotes, encodeQFVotes} from "../../../hardhat/scripts/utils";
-import { useAccount, useClient } from 'wagmi';
+import { encodeQFVotes} from "../../../hardhat/scripts/utils";
+import { useAccount } from 'wagmi';
 import deployedContracts from '../../contracts/deployedContracts'; // Adjust the import path as needed
-import { set } from 'nprogress';
-import {Hex, parseAbiParameters, encodeAbiParameters, parseUnits, zeroAddress} from "viem"
+import { parseUnits} from "viem"
 
 interface Round {
     name: string;
@@ -29,9 +28,7 @@ const VoteOnProject = () => {
   const [networkName, setNetworkName] = useState(null);
   const [provider, setProvider] = useState<ethers.providers.BrowserProvider | null>(null);
   const [roundApplicationsMapping, setApplicationsMapping] = useState<any>({});
-//   const [roundContract, setRoundContract] = useState<any>(null);
   const [selectedProject, setSelectedProject] = useState<any>(null);
-//   const [grantAddress, setGrantAddress] = useState<any>(null);
 
   useEffect(() => {
     const fetchRounds = async () => {
@@ -144,7 +141,6 @@ const VoteOnProject = () => {
       setApplicationsMapping(applicationsMapping);
     });
 
-
     console.log('application mapping: ', applicationsMapping);
   };
 
@@ -174,23 +170,7 @@ const handleDonate = async (projectId: string, round: Round, amount: any) => {
   
       const projectIDBytes32 = zeroPadValue(toUtf8Bytes(projectId), 32);
       const applicationIndex = 0; // Assuming applicationIndex is 0
-  
-      // Check wallet balance
-    //   const ethBalance = await provider.getBalance(signer.getAddress());
-    //   console.log("Wallet ETH Balance:", ethBalance.toString());
-    //   if (ethBalance.lt(parseUnits("0.01", 18))) { // Check if ETH balance is less than a small threshold (for gas fees)
-    //     throw new Error("Insufficient ETH balance for gas fees");
-    //   }
-  
-      // Check token balance using the ERC-20 ABI
-    //   const tokenContract = new ethers.Contract(round.token, ERC20_ABI, signer);
-      
-    //   const tokenBalance = await tokenContract.balanceOf(signer.getAddress());
-    //   console.log("Wallet Token Balance:", tokenBalance.toString());
-    //   if (tokenBalance.lt(donationAmount)) {
-    //     throw new Error("Insufficient token balance");
-    //   }
-  
+      console.log
       // Encode the vote using the function from the test
       const donations = [{
         applicationIndex,
@@ -202,9 +182,14 @@ const handleDonate = async (projectId: string, round: Round, amount: any) => {
   
       const networkName = await getNetworkName(provider);
       const roundContract = new ethers.Contract(round.address, getABI(networkName, "RoundImplementation").abi, signer);
-  
-      await roundContract.vote(votes);
-      console.log("Donation transaction successful");
+
+      try {
+        const tx = await roundContract.vote(votes , { value: donationAmount });
+        const receipt = await tx.wait(); // Wait for the transaction to be mined
+        console.log('Gas Used:', receipt.gasUsed.toString());
+      } catch (voteError) {
+        console.error('Error during vote transaction:', voteError);
+      }
   
     } catch (err) {
       console.error('Error donating to project:', err);
@@ -218,7 +203,6 @@ const isValidChainId = (chainId: number): chainId is keyof DeployedContractsType
   };
 
 const fetchGrantAddress = async (projectId: string) => {
-    // console.log(selectedProject);
 
     try {
       const provider = new BrowserProvider(window.ethereum);
@@ -255,23 +239,11 @@ const fetchGrantAddress = async (projectId: string) => {
             }
         }
     }
-    //   const owners = events.map((event) => {
-    //     if (event instanceof EventLog) {
-    //         const eventData = event.args;
-    //         console.log('eventdata type', eventData);
-    //         console.log('eventdata type', eventData[0]);
-    //         if (Number(eventData[0]) === Number(projectId)) {
-    //             return eventData[1];
-    //         }
-    //         return null;
-    //     }
-    //   }).filter(owner => owner !== null);
     
     } catch (err) {
       console.error('Error fetching project events:', err);
     }
   };
-
 
   // Render loading state while fetching data
   if (loading) return <div>Loading...</div>;
