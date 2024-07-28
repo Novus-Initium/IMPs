@@ -1,40 +1,53 @@
-
-// const ipfsHash = "QmSoa7SDiNXmNLU34nHKwUchZdfgeqpDhtj8jzcHh4upaW";
-// const response = await fetch(`/api/ipfs/${ipfsHash}`);
-// const data = await response.json()
 "use client"
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { getABI,getNetworkName } from '../../../hardhat/scripts/utils.js'; // Update with the correct path
+import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
+import { useEthersProvider } from '../../utils/useEthersProvider';
 
 interface RoundData {
-    name: string;
-    description: string;
-    token: string;
-    matchAmount: string;
-    address: string;
-    applicationsEndTime: string;
-    applicationsStartTime: string;
-    roundStartTime: string;
-    roundEndTime: string;
-  }
+  name: string;
+  description: string;
+  token: string;
+  matchAmount: string;
+  address: string;
+  applicationsEndTime: string;
+  applicationsStartTime: string;
+  roundStartTime: string;
+  roundEndTime: string;
+}
 
 const ExploreActiveRounds = () => {
+  const [rounds, setRounds] = useState<RoundData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { provider, signer, owner, isLoading: providerLoading, error: providerError } = useEthersProvider();
 
-    const [rounds, setRounds] = useState<RoundData[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [owner, setOwner] = useState<string | null>(null);
+  const setupPayout = async (roundAddress: string) => {
+    if (!signer) {
+      console.error('No signer available');
+      return;
+    }
+
+    try {
+      const roundABI = getABI(await getNetworkName(provider!), 'Round');
+      const roundContract = new ethers.Contract(roundAddress, roundABI.abi, signer);
+
+      const tx = await roundContract.setUpPayout();
+      await tx.wait();
+
+      console.log('Payout set up successfully for round:', roundAddress);
+      // Optionally, update the UI or refetch the rounds here
+    } catch (error) {
+      console.error('Error setting up payout:', error);
+      // Handle the error (e.g., show an error message to the user)
+    }
+  };
 
   useEffect(() => {
     const fetchRounds = async () => {
-      try {
-        // Initialize provider using MetaMask
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        await provider.send('eth_requestAccounts', []); // Request account access
-        const signer = await provider.getSigner();
-        const owner = await signer.getAddress();
+      if (!provider || !owner) return;
 
+      try {
         const roundFactory = getABI(await getNetworkName(provider), 'RoundFactory');
         const contract = new ethers.Contract(roundFactory.address, roundFactory.abi, provider);
 
@@ -42,13 +55,12 @@ const ExploreActiveRounds = () => {
         const filter = contract.filters.RoundCreated();
         const events = await contract.queryFilter(filter);
 
-        const roundsMapping: Record<string, string> = events.reduce((acc: RoundEvents, event: any) => {
+        const roundsMapping: Record<string, string> = events.reduce((acc: Record<string, string>, event: any) => {
           acc[event.args[3]] = event.args[0]; // Map roundAddress to roundMetaPtrCID
           return acc;
         }, {});
 
-        // iterate through all created rounds and retrieve metadata
-        // from ipfs using the roundMetaPtrCID
+        // Fetch round details from IPFS
         const details = await Promise.all(
           Object.keys(roundsMapping).map(async (ipfsHash) => {
             try {
@@ -62,67 +74,72 @@ const ExploreActiveRounds = () => {
             }
           })
         );
-        console.log("Details" , details)
-        // Filter active rounds based on current time
+
         const currentDate = new Date().toISOString();
-        console.log("Current Time:", currentDate);
         const ended = details
-          .filter((round) => !round.error 
-            && round['body']['message']['ownerAddress'] == owner 
-            && round['body']['message']['roundEndTime'] < currentDate)
-          .map((round) => {
-            const endedRound = {
-                'name': round['body']['message']['name'],
-                'description': round['body']['message']['description'],
-                'token': round['body']['message']['token'],
-                'matchAmount': round['body']['message']['matchAmount'],
-                'address': round['body']['message']['address'],
-                'applicationsEndTime': round['body']['message']['applicationsEndTime'],
-                'applicationsStartTime': round['body']['message']['applicationsStartTime'],
-                'roundStartTime': round['body']['message']['roundStartTime'],
-                'roundEndTime': round['body']['message']['roundEndTime'],
-            }
-            return endedRound;
-          });
-        
+          .filter((round) => !round.error && round.body.message.ownerAddress === owner && round.body.message.roundEndTime < currentDate)
+          .map((round) => ({
+            name: round.body.message.name,
+            description: round.body.message.description,
+            token: round.body.message.token,
+            matchAmount: round.body.message.matchAmount,
+            address: round.body.message.address,
+            applicationsEndTime: round.body.message.applicationsEndTime,
+            applicationsStartTime: round.body.message.applicationsStartTime,
+            roundStartTime: round.body.message.roundStartTime,
+            roundEndTime: round.body.message.roundEndTime,
+          }));
+
         setRounds(ended);
-        console.log("Ended", ended);
-      } catch (error: any) {
-        console.error(error);
+      } catch (err: any) {
+        setError(err.message || 'An error occurred while fetching rounds');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchRounds();
-  }, []);
+    if (provider && owner) {
+      fetchRounds();
+    }
+  }, [provider, owner]);
 
-  if (loading) return <div>Loading...</div>;
+  if (providerLoading) return <div>Loading provider...</div>;
+  if (providerError) return <div>Provider Error: {providerError}</div>;
+  if (!provider || !signer) return <div>No Ethereum provider found</div>;
+  if (loading) return <div>Loading rounds...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
-      <h1>View Rounds Ended</h1>
-      <ul>
-        {Object.entries(rounds).map(([address, roundData]) => (
-          <li key={address}>
+    <h1>View Rounds Ended</h1>
+    {rounds.length === 0 ? (
+        <p>No ended rounds found.</p>
+    ) : (
+        <ul>
+        {rounds.map((roundData, index) => (
+            <li key={`${roundData.address}-${index}`}>
             <div className="card-body">
                 <h2 className="card-title">Round {roundData.name}</h2>
-                    <p>Round Description: {roundData.description}</p>
-                    <p>Round Token: {roundData.token}</p>
-                    <p>Round Match Amount: {roundData.matchAmount}</p>
-                    <p>Round Application Start Time: {roundData.applicationsStartTime}</p>
-                    <p>Round Application Start Time: {roundData.applicationsEndTime}</p>
-                    <p>Round Round Start Time: {roundData.roundStartTime}</p>
-                    <p>Round Round End Time: {roundData.roundEndTime}</p>                
-                    <div className="card-actions justify-end">
-                <button className="btn btn-primary">Set Up Payout</button>
+                <p>Round Description: {roundData.description}</p>
+                <p>Round Token: {roundData.token}</p>
+                <p>Round Match Amount: {roundData.matchAmount}</p>
+                <p>Round Application Start Time: {roundData.applicationsStartTime}</p>
+                <p>Round Application End Time: {roundData.applicationsEndTime}</p>
+                <p>Round Start Time: {roundData.roundStartTime}</p>
+                <p>Round End Time: {roundData.roundEndTime}</p>
+                <div className="card-actions justify-end">
+                <button 
+                    className="btn btn-primary"
+                    onClick={() => setupPayout(roundData.address)}
+                >
+                    Set Up Payout
+                </button>
                 </div>
             </div>
-
-          </li>
+            </li>
         ))}
-      </ul>
+        </ul>
+    )}
     </div>
   );
 };
