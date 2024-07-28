@@ -28,10 +28,6 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/grants",
   },
   {
-    label: "Manager",
-    href: "/manager",
-  },
-  {
     label: "About",
     href: "/about",
   },

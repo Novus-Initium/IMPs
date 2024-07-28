@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { ethers, BrowserProvider, EventLog, Contract, toUtf8Bytes, zeroPadValue } from 'ethers';
-import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
+import { getABI, getNetworkName } from '../../utils/utils.js';
 import parsePointer from "../../utils/allo/parsePointer";
 import { encodeQFVotes} from "../../../hardhat/scripts/utils";
 import { useAccount } from 'wagmi';
@@ -26,7 +26,7 @@ const VoteOnProject = () => {
   const [error, setError] = useState(null);
   const [selectedRound, setSelectedRound] = useState<Round | null>(null);
   const [networkName, setNetworkName] = useState(null);
-  const [provider, setProvider] = useState<ethers.providers.BrowserProvider | null>(null);
+  const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [roundApplicationsMapping, setApplicationsMapping] = useState<any>({});
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
@@ -144,17 +144,6 @@ const VoteOnProject = () => {
     console.log('application mapping: ', applicationsMapping);
   };
 
-
-async function getABIEtherscan(contractAddress: string) {
-    const url = `https://api-sepolia.etherscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.ETHERSCAN_API_KEY}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    if (data.status !== '1') {
-        throw new Error('Failed to fetch ABI');
-    }
-    return JSON.parse(data.result);
-}
-
 const handleDonate = async (projectId: string, round: Round, amount: any) => {
     try {
       const provider = new ethers.BrowserProvider(window.ethereum);
@@ -256,7 +245,7 @@ const fetchGrantAddress = async (projectId: string) => {
     <div>
       {!selectedRound ? (
         <>
-          <h2>Active Rounds</h2>
+          <h2 style={{ fontSize: '2rem', textAlign: 'center', margin: '20px 0' }}>Active Rounds</h2>
           <ul className="flex flex-wrap gap-4">
             {futureRounds.map((round, index) => (
               <div key={index} className="card bg-base-100 w-96 shadow-xl">

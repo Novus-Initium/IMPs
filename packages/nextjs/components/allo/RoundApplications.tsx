@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { ethers, BrowserProvider, EventLog } from 'ethers';
-import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
+import { getABI, getNetworkName } from '../../utils/utils.js';
 import parsePointer from "../../utils/allo/parsePointer";
 
 const RoundApplications = () => {
@@ -10,7 +10,7 @@ const RoundApplications = () => {
   const [error, setError] = useState(null);
   const [selectedRound, setSelectedRound] = useState(null);
   const [networkName, setNetworkName] = useState(null);
-  const [provider, setProvider] = useState<ethers.providers.BrowserProvider | null>(null);
+  const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [applicationsMapping, setApplicationsMapping] = useState<any>({});
 
   useEffect(() => {

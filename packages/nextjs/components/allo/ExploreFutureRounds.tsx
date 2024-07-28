@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
-import { getABI, getNetworkName } from '../../../hardhat/scripts/utils.js';
+import { getABI, getNetworkName } from '../../utils/utils.js';
 import {applyToRound} from "../../utils/allo/applyToRound"
 import "../../styles/ExploreFutureRounds.css";
 import parsePointer from "../../utils/allo/parsePointer"

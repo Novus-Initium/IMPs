@@ -5,7 +5,7 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { getABI,getNetworkName } from '../../../hardhat/scripts/utils.js'; // Update with the correct path
+import { getABI,getNetworkName } from '../../utils/utils.js'; // Update with the correct path
 
 const ExploreActiveRounds = () => {
   const [rounds, setRounds] = useState<string[]>([]);
