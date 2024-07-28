@@ -5,11 +5,9 @@
 import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 
 const deployedContracts = {
-  11155111: {
+  31337: {
     AlloSettings: {
-
-      address: "0x78d52A5EEc83793eCD21732249860d76046B13f4",
-
+      address: "0x9A676e781A523b5d0C0e43731313A708CB607508",
       abi: [
         {
           anonymous: false,
@@ -198,9 +196,7 @@ const deployedContracts = {
       },
     },
     Attesting: {
-
-      address: "0x8198266A405DE9Fa63121162f5A951916FA4FC9d",
-
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi: [
         {
           inputs: [
@@ -574,9 +570,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     MerklePayoutStrategyFactory: {
-
-      address: "0xbCc675b28e52A3cd1F5D3479f5120A3A7E2df12B",
-
+      address: "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
       abi: [
         {
           anonymous: false,
@@ -749,9 +743,7 @@ const deployedContracts = {
       },
     },
     MerklePayoutStrategyImplementation: {
-
-      address: "0xaF2edcCbF7415e9E45BE28D9C647c7E5ea4c0893",
-
+      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
       abi: [
         {
           anonymous: false,
@@ -1096,9 +1088,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     ProgramFactory: {
-
-      address: "0xC4c6EcD4C0e775711043D08FC9D292e01B188df4",
-
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           anonymous: false,
@@ -1260,9 +1250,7 @@ const deployedContracts = {
       },
     },
     ProgramImplementation: {
-
-      address: "0x8ACb95E6b86b94b752BeAFEcCB05CbEc0DDcA727",
-
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
       abi: [
         {
           anonymous: false,
@@ -1657,9 +1645,7 @@ const deployedContracts = {
       },
     },
     ProjectRegistry: {
-
-      address: "0x1858F0072D8E5Bc1ab5e6B63a574da57655cbA2F",
-
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
       abi: [
         {
           anonymous: false,
@@ -2012,9 +1998,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     QuadraticFundingVotingStrategyFactory: {
-
-      address: "0xC0cb7ed5203B54A6c257e4119555cbF8be7dF0CE",
-
+      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
       abi: [
         {
           anonymous: false,
@@ -2187,9 +2171,7 @@ const deployedContracts = {
       },
     },
     QuadraticFundingVotingStrategyImplementation: {
-
-      address: "0xe4D3dBac949Ce5aAAE9EbAC6B02229dBf8D0C06c",
-
+      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
       abi: [
         {
           anonymous: false,
@@ -2325,9 +2307,7 @@ const deployedContracts = {
       },
     },
     RoundFactory: {
-
-      address: "0xDa10f1D07AfD28bEb1EF6E827f25168A8AA16A5e",
-
+      address: "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
       abi: [
         {
           anonymous: false,
@@ -2569,9 +2549,3806 @@ const deployedContracts = {
       },
     },
     RoundImplementation: {
-
+      address: "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "oldMetaPtr",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "newMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "ApplicationMetaPtrUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "status",
+              type: "uint256",
+            },
+          ],
+          name: "ApplicationStatusesUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "oldTime",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newTime",
+              type: "uint256",
+            },
+          ],
+          name: "ApplicationsEndTimeUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "oldTime",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newTime",
+              type: "uint256",
+            },
+          ],
+          name: "ApplicationsStartTimeUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newAmount",
+              type: "uint256",
+            },
+          ],
+          name: "MatchAmountUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "projectID",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "applicationIndex",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "applicationMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "NewProjectApplication",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "matchAmountAfterFees",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "protocolFeeAmount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "roundFeeAmount",
+              type: "uint256",
+            },
+          ],
+          name: "PayFeeAndEscrowFundsToPayoutContract",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "oldMetaPtr",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "newMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "ProjectsMetaPtrUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "previousAdminRole",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "newAdminRole",
+              type: "bytes32",
+            },
+          ],
+          name: "RoleAdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "oldTime",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newTime",
+              type: "uint256",
+            },
+          ],
+          name: "RoundEndTimeUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "roundFeeAddress",
+              type: "address",
+            },
+          ],
+          name: "RoundFeeAddressUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint32",
+              name: "roundFeePercentage",
+              type: "uint32",
+            },
+          ],
+          name: "RoundFeePercentageUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "oldMetaPtr",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "newMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "RoundMetaPtrUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "oldTime",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "newTime",
+              type: "uint256",
+            },
+          ],
+          name: "RoundStartTimeUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "DEFAULT_ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "ROUND_OPERATOR_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "alloSettings",
+          outputs: [
+            {
+              internalType: "contract AlloSettings",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "applicationMetaPtr",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "protocol",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "pointer",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "applicationStatusesBitMap",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "applications",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "projectID",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "applicationIndex",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "metaPtr",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "applicationsEndTime",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "applicationsIndexesByProjectID",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "applicationsStartTime",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "projectID",
+              type: "bytes32",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "newApplicationMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "applyToRound",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "projectID",
+              type: "bytes32",
+            },
+          ],
+          name: "getApplicationIndexesByProjectID",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "applicationIndex",
+              type: "uint256",
+            },
+          ],
+          name: "getApplicationStatus",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleAdmin",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "getRoleMember",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleMemberCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "encodedParameters",
+              type: "bytes",
+            },
+            {
+              internalType: "address",
+              name: "_alloSettings",
+              type: "address",
+            },
+          ],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "matchAmount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes[]",
+              name: "data",
+              type: "bytes[]",
+            },
+          ],
+          name: "multicall",
+          outputs: [
+            {
+              internalType: "bytes[]",
+              name: "results",
+              type: "bytes[]",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nextApplicationIndex",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "payoutStrategy",
+          outputs: [
+            {
+              internalType: "address payable",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "payoutStrategyFactory",
+          outputs: [
+            {
+              internalType: "contract IPayoutStrategyFactory",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "renounceRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundEndTime",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundFeeAddress",
+          outputs: [
+            {
+              internalType: "address payable",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundFeePercentage",
+          outputs: [
+            {
+              internalType: "uint32",
+              name: "",
+              type: "uint32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundMetaPtr",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "protocol",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "pointer",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundStartTime",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "index",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "statusRow",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct IRoundImplementation.ApplicationStatus[]",
+              name: "statuses",
+              type: "tuple[]",
+            },
+          ],
+          name: "setApplicationStatuses",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "setReadyForPayout",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes4",
+              name: "interfaceId",
+              type: "bytes4",
+            },
+          ],
+          name: "supportsInterface",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "token",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "newApplicationMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "updateApplicationMetaPtr",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "newAmount",
+              type: "uint256",
+            },
+          ],
+          name: "updateMatchAmount",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "newFeeAddress",
+              type: "address",
+            },
+          ],
+          name: "updateRoundFeeAddress",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint32",
+              name: "newFeePercentage",
+              type: "uint32",
+            },
+          ],
+          name: "updateRoundFeePercentage",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "newRoundMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "updateRoundMetaPtr",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "newApplicationsStartTime",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "newApplicationsEndTime",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "newRoundStartTime",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "newRoundEndTime",
+              type: "uint256",
+            },
+          ],
+          name: "updateStartAndEndTimes",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes[]",
+              name: "encodedVotes",
+              type: "bytes[]",
+            },
+          ],
+          name: "vote",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "votingStrategy",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "votingStrategyFactory",
+          outputs: [
+            {
+              internalType: "contract IVotingStrategyFactory",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "tokenAddress",
+              type: "address",
+            },
+            {
+              internalType: "address payable",
+              name: "recipent",
+              type: "address",
+            },
+          ],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {
+        applyToRound: "contracts/round/IRoundImplementation.sol",
+        getApplicationIndexesByProjectID:
+          "contracts/round/IRoundImplementation.sol",
+        getApplicationStatus: "contracts/round/IRoundImplementation.sol",
+        initialize: "contracts/round/IRoundImplementation.sol",
+        setApplicationStatuses: "contracts/round/IRoundImplementation.sol",
+        setReadyForPayout: "contracts/round/IRoundImplementation.sol",
+        updateApplicationMetaPtr: "contracts/round/IRoundImplementation.sol",
+        updateMatchAmount: "contracts/round/IRoundImplementation.sol",
+        updateRoundFeeAddress: "contracts/round/IRoundImplementation.sol",
+        updateRoundFeePercentage: "contracts/round/IRoundImplementation.sol",
+        updateRoundMetaPtr: "contracts/round/IRoundImplementation.sol",
+        updateStartAndEndTimes: "contracts/round/IRoundImplementation.sol",
+        vote: "contracts/round/IRoundImplementation.sol",
+        withdraw: "contracts/round/IRoundImplementation.sol",
+        DEFAULT_ADMIN_ROLE:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        getRoleAdmin:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        getRoleMember:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        getRoleMemberCount:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        grantRole:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        hasRole:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        renounceRole:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        revokeRole:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        supportsInterface:
+          "@openzeppelin/contracts-upgradeable/access/AccessControlEnumerableUpgradeable.sol",
+        multicall:
+          "@openzeppelin/contracts-upgradeable/utils/MulticallUpgradeable.sol",
+      },
+    },
+  },
+  11155111: {
+    AlloSettings: {
+      address: "0x78d52A5EEc83793eCD21732249860d76046B13f4",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint24",
+              name: "protocolFeePercentage",
+              type: "uint24",
+            },
+          ],
+          name: "ProtocolFeePercentageUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "protocolTreasuryAddress",
+              type: "address",
+            },
+          ],
+          name: "ProtocolTreasuryUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "DENOMINATOR",
+          outputs: [
+            {
+              internalType: "uint24",
+              name: "",
+              type: "uint24",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "protocolFeePercentage",
+          outputs: [
+            {
+              internalType: "uint24",
+              name: "",
+              type: "uint24",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "protocolTreasury",
+          outputs: [
+            {
+              internalType: "address payable",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint24",
+              name: "_protocolFeePercentage",
+              type: "uint24",
+            },
+          ],
+          name: "updateProtocolFeePercentage",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "_protocolTreasury",
+              type: "address",
+            },
+          ],
+          name: "updateProtocolTreasury",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        owner:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        renounceOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        transferOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+      },
+    },
+    Attesting: {
+      address: "0x8198266A405DE9Fa63121162f5A951916FA4FC9d",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [],
+          name: "AccessDenied",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "AlreadyRevoked",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "Irrevocable",
+          type: "error",
+        },
+        {
+          inputs: [],
+          name: "NotFound",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "attester",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "string",
+              name: "recipient",
+              type: "string",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "uid",
+              type: "uint256",
+            },
+          ],
+          name: "Attested",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "string",
+              name: "recipient",
+              type: "string",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "attester",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "uid",
+              type: "uint256",
+            },
+          ],
+          name: "Revoked",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "recipient",
+              type: "string",
+            },
+            {
+              internalType: "bool",
+              name: "revocable",
+              type: "bool",
+            },
+            {
+              internalType: "string",
+              name: "data",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "rating",
+              type: "uint256",
+            },
+          ],
+          name: "attest",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "recipient",
+              type: "string",
+            },
+            {
+              internalType: "bool",
+              name: "revocable",
+              type: "bool",
+            },
+            {
+              internalType: "string",
+              name: "data",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "tokenAddress",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenAmount",
+              type: "uint256",
+            },
+            {
+              internalType: "address payable",
+              name: "destinationAddress",
+              type: "address",
+            },
+          ],
+          name: "attestWithToken",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "attester",
+              type: "address",
+            },
+          ],
+          name: "attestationsByAttester",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "uid",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "time",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "revocationTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "recipient",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "attester",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "revocable",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "data",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "rating",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Attesting.Attestation[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "string",
+              name: "recipient",
+              type: "string",
+            },
+          ],
+          name: "attestationsByRecipient",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "uid",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "time",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "revocationTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "recipient",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "attester",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "revocable",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "data",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "rating",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Attesting.Attestation[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "uid",
+              type: "uint256",
+            },
+          ],
+          name: "getAttestation",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "uid",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "time",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "revocationTime",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "recipient",
+                  type: "string",
+                },
+                {
+                  internalType: "address",
+                  name: "attester",
+                  type: "address",
+                },
+                {
+                  internalType: "bool",
+                  name: "revocable",
+                  type: "bool",
+                },
+                {
+                  internalType: "string",
+                  name: "data",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "rating",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct Attesting.Attestation",
+              name: "",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "uid",
+              type: "uint256",
+            },
+          ],
+          name: "revoke",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    MerklePayoutStrategyFactory: {
+      address: "0xbCc675b28e52A3cd1F5D3479f5120A3A7E2df12B",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "payoutContractAddress",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "payoutImplementation",
+              type: "address",
+            },
+          ],
+          name: "PayoutContractCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "merklePayoutStrategyAddress",
+              type: "address",
+            },
+          ],
+          name: "PayoutImplementationUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "create",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nonce",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "payoutImplementation",
+          outputs: [
+            {
+              internalType: "address payable",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "newPayoutImplementation",
+              type: "address",
+            },
+          ],
+          name: "updatePayoutImplementation",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        create: "contracts/payoutStrategy/IPayoutStrategyFactory.sol",
+        initialize: "contracts/payoutStrategy/IPayoutStrategyFactory.sol",
+        updatePayoutImplementation:
+          "contracts/payoutStrategy/IPayoutStrategyFactory.sol",
+        owner:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        renounceOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        transferOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+      },
+    },
+    MerklePayoutStrategyImplementation: {
+      address: "0xaF2edcCbF7415e9E45BE28D9C647c7E5ea4c0893",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "BatchPayoutSuccessful",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "bytes32",
+              name: "merkleRoot",
+              type: "bytes32",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "distributionMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "DistributionUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "grantee",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "projectId",
+              type: "bytes32",
+            },
+          ],
+          name: "FundsDistributed",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "tokenAddress",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "withdrawAddress",
+              type: "address",
+            },
+          ],
+          name: "FundsWithdrawn",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [],
+          name: "ReadyForPayout",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "ROUND_OPERATOR_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "distributionMetaPtr",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "protocol",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "pointer",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_index",
+              type: "uint256",
+            },
+          ],
+          name: "hasBeenDistributed",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "init",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isDistributionSet",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "isReadyForPayout",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "merkleRoot",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "index",
+                  type: "uint256",
+                },
+                {
+                  internalType: "address",
+                  name: "grantee",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+                {
+                  internalType: "bytes32[]",
+                  name: "merkleProof",
+                  type: "bytes32[]",
+                },
+                {
+                  internalType: "bytes32",
+                  name: "projectId",
+                  type: "bytes32",
+                },
+              ],
+              internalType:
+                "struct MerklePayoutStrategyImplementation.Distribution[]",
+              name: "_distributions",
+              type: "tuple[]",
+            },
+          ],
+          name: "payout",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundAddress",
+          outputs: [
+            {
+              internalType: "address payable",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "setReadyForPayout",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "tokenAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "encodedDistribution",
+              type: "bytes",
+            },
+          ],
+          name: "updateDistribution",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "withdrawAddress",
+              type: "address",
+            },
+          ],
+          name: "withdrawFunds",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          stateMutability: "payable",
+          type: "receive",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    ProgramFactory: {
+      address: "0xC4c6EcD4C0e775711043D08FC9D292e01B188df4",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "programContractAddress",
+              type: "address",
+            },
+          ],
+          name: "ProgramContractUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "programContractAddress",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "programImplementation",
+              type: "address",
+            },
+          ],
+          name: "ProgramCreated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "encodedParameters",
+              type: "bytes",
+            },
+          ],
+          name: "create",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "programContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newProgramContract",
+              type: "address",
+            },
+          ],
+          name: "updateProgramContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        owner:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        renounceOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        transferOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+      },
+    },
+    ProgramImplementation: {
+      address: "0x8ACb95E6b86b94b752BeAFEcCB05CbEc0DDcA727",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "oldMetaPtr",
+              type: "tuple",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "newMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "MetaPtrUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "previousAdminRole",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "newAdminRole",
+              type: "bytes32",
+            },
+          ],
+          name: "RoleAdminChanged",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleGranted",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "RoleRevoked",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "DEFAULT_ADMIN_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "PROGRAM_OPERATOR_ROLE",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleAdmin",
+          outputs: [
+            {
+              internalType: "bytes32",
+              name: "",
+              type: "bytes32",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "getRoleMember",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+          ],
+          name: "getRoleMemberCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "grantRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "hasRole",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "encodedParameters",
+              type: "bytes",
+            },
+          ],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "metaPtr",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "protocol",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "pointer",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "renounceRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes32",
+              name: "role",
+              type: "bytes32",
+            },
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "revokeRole",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes4",
+              name: "interfaceId",
+              type: "bytes4",
+            },
+          ],
+          name: "supportsInterface",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "newMetaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "updateMetaPtr",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        DEFAULT_ADMIN_ROLE:
+          "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        getRoleAdmin:
+          "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        getRoleMember:
+          "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        getRoleMemberCount:
+          "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        grantRole: "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        hasRole: "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        renounceRole:
+          "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        revokeRole:
+          "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+        supportsInterface:
+          "@openzeppelin/contracts/access/AccessControlEnumerable.sol",
+      },
+    },
+    ProjectRegistry: {
+      address: "0x1858F0072D8E5Bc1ab5e6B63a574da57655cbA2F",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              indexed: false,
+              internalType: "struct MetaPtr",
+              name: "metaPtr",
+              type: "tuple",
+            },
+          ],
+          name: "MetadataUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnerAdded",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnerRemoved",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "ProjectCreated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "addProjectOwner",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "metadata",
+              type: "tuple",
+            },
+          ],
+          name: "createProject",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "getAllProjects",
+          outputs: [
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "id",
+                  type: "uint256",
+                },
+                {
+                  components: [
+                    {
+                      internalType: "uint256",
+                      name: "protocol",
+                      type: "uint256",
+                    },
+                    {
+                      internalType: "string",
+                      name: "pointer",
+                      type: "string",
+                    },
+                  ],
+                  internalType: "struct MetaPtr",
+                  name: "metadata",
+                  type: "tuple",
+                },
+              ],
+              internalType: "struct ProjectRegistry.Project[]",
+              name: "",
+              type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+          ],
+          name: "getProjectOwners",
+          outputs: [
+            {
+              internalType: "address[]",
+              name: "",
+              type: "address[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+          ],
+          name: "projectOwnersCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "projects",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "id",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "metadata",
+              type: "tuple",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "projectsCount",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "projectsOwners",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "count",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "prevOwner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "removeProjectOwner",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "projectID",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "uint256",
+                  name: "protocol",
+                  type: "uint256",
+                },
+                {
+                  internalType: "string",
+                  name: "pointer",
+                  type: "string",
+                },
+              ],
+              internalType: "struct MetaPtr",
+              name: "metadata",
+              type: "tuple",
+            },
+          ],
+          name: "updateProjectMetadata",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    QuadraticFundingVotingStrategyFactory: {
+      address: "0xC0cb7ed5203B54A6c257e4119555cbF8be7dF0CE",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "votingContractAddress",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "votingImplementation",
+              type: "address",
+            },
+          ],
+          name: "VotingContractCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "votingContractAddress",
+              type: "address",
+            },
+          ],
+          name: "VotingContractUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "create",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nonce",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newVotingContract",
+              type: "address",
+            },
+          ],
+          name: "updateVotingContract",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "votingContract",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        create: "contracts/votingStrategy/IVotingStrategyFactory.sol",
+        initialize: "contracts/votingStrategy/IVotingStrategyFactory.sol",
+        updateVotingContract:
+          "contracts/votingStrategy/IVotingStrategyFactory.sol",
+        owner:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        renounceOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        transferOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+      },
+    },
+    QuadraticFundingVotingStrategyImplementation: {
+      address: "0xe4D3dBac949Ce5aAAE9EbAC6B02229dBf8D0C06c",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "token",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amount",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "origin",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "voter",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "grantAddress",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "bytes32",
+              name: "projectId",
+              type: "bytes32",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "applicationIndex",
+              type: "uint256",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "roundAddress",
+              type: "address",
+            },
+          ],
+          name: "Voted",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "init",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundAddress",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes[]",
+              name: "encodedVotes",
+              type: "bytes[]",
+            },
+            {
+              internalType: "address",
+              name: "voterAddress",
+              type: "address",
+            },
+          ],
+          name: "vote",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        init: "contracts/votingStrategy/IVotingStrategy.sol",
+        roundAddress: "contracts/votingStrategy/IVotingStrategy.sol",
+        vote: "contracts/votingStrategy/IVotingStrategy.sol",
+      },
+    },
+    RoundFactory: {
+      address: "0xDa10f1D07AfD28bEb1EF6E827f25168A8AA16A5e",
+      abi: [
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "alloSettings",
+              type: "address",
+            },
+          ],
+          name: "AlloSettingsUpdated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint8",
+              name: "version",
+              type: "uint8",
+            },
+          ],
+          name: "Initialized",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "roundAddress",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "ownedBy",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "roundImplementation",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "string",
+              name: "roundMetaPtrCID",
+              type: "string",
+            },
+          ],
+          name: "RoundCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "roundImplementation",
+              type: "address",
+            },
+          ],
+          name: "RoundImplementationUpdated",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "VERSION",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "alloSettings",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes",
+              name: "encodedParameters",
+              type: "bytes",
+            },
+            {
+              internalType: "address",
+              name: "ownedBy",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "roundMetaPtrCID",
+              type: "string",
+            },
+          ],
+          name: "create",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "initialize",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "nonce",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "roundImplementation",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newAlloSettings",
+              type: "address",
+            },
+          ],
+          name: "updateAlloSettings",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address payable",
+              name: "newRoundImplementation",
+              type: "address",
+            },
+          ],
+          name: "updateRoundImplementation",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {
+        create: "contracts/round/IRoundFactory.sol",
+        initialize: "contracts/round/IRoundFactory.sol",
+        updateAlloSettings: "contracts/round/IRoundFactory.sol",
+        updateRoundImplementation: "contracts/round/IRoundFactory.sol",
+        owner:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        renounceOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+        transferOwnership:
+          "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol",
+      },
+    },
+    RoundImplementation: {
       address: "0x4D66f47490c9Fd29126276eA1C6abA0A1a149930",
-
       abi: [
         {
           anonymous: false,

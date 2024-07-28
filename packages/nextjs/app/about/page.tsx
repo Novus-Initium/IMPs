@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <div className="px-5">
           <h1 className="text-center">
             <span className="block text-3xl mb-2 py-4 secondary-100">About IMPs</span>
-            <span className="block text-2xl text-secondary-200 font-bold">some hisDori(c) stuff</span>
+            <span className="block text-2xl text-secondary-200 font-bold">Some HisDoric Stuff</span>
           </h1>
           <div className="avatar justify-center flex py-4">
             <div className="w-24 rounded-md">

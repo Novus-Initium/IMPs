@@ -8,7 +8,7 @@ const ProjectsPage = () => {
       <Head>
         <title>Grant Rounds</title>
       </Head>
-      <div className="card bg-accent-content px-10 mb-2 max-w-lg shadow-xl">
+      <div className="card bg-base-200 px-10 mb-2 max-w-lg shadow-xl">
         <div className="card-body flex items-center text-center ">
           <h1 className="card-title text-3xl font-extrabold text-primary py-4">Rounds</h1>
           <div className="card-actions flex-col items-center rounded-md mb-2">
