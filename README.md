@@ -1,14 +1,14 @@
 # IMPS - Impact Measurement Protocols
 
-IMPS (Impact Measurement Protocols) is Ninit's first iteration of a custom Grant Stack application, leveraging Scaffold-Eth-2 and custom Allo V1 contracts. It aims to simplify the onboarding experience into web3 with Quadratic Funding (QF) rounds while providing additional resources and tooling for communities to subjectively measure impact under specific conditions with fairly weighted votes.
+IMPS (Impact Measurement Protocols) is a first iteration of a custom Grant Stack application, leveraging Scaffold-Eth-2 and custom Allo V1 contracts. It aims to simplify the onboarding experience into web3 with Quadratic Funding (QF) rounds while providing additional resources and tooling for communities to subjectively measure impact under specific conditions with fairly weighted votes.
 
 ## Project Overview
 
-IMPS is a subjective measurement system designed to analyze and assess impact, using that data to hold projects accountable for poor impact reporting or failure to deliver on promises. It's particularly useful with Streaming Quadratic Funding (SQF) and interesting to implement in direct single-funder (SF) donations outside of QF pools.
+IMPS serves both as a grant stack scaffolding and subjective measurement system designed to analyze and assess impact, using that data to hold projects accountable for poor impact reporting or failure to deliver on promises. It's particularly useful with Streaming Quadratic Funding (SQF) and interesting to implement in direct single-funder (SF) donations outside of QF pools.
 
-Built using Scaffold-Eth-2 and inspired by Allo V1, IMPS makes it easier for developers to fork and customize their own accountable funding mechanism or QF grant stack. This project is a more built-out and customized variation of our Scaffold-Grant-Stack application.
+Built using Scaffold-Eth-2 and Allo V1, IMPS makes it easier for developers to fork and customize their own funding mechanisms or QF grant stack. This project is a more built-out and customized variation of the Scaffold-Grant-Stack application.
 
-### Key Features
+### Key Features to be implemented
 
 - **Impact Attestation**: Donors can attest to a project's impact with a revocable statement.
 - **Weighted Voting**: Vote weight is calculated based on the donor's contribution ratio to the project.
@@ -37,26 +37,42 @@ Copy
 ### Installation and Setup
 
 1. Clone the repository:
+
+```
 git clone https://github.com/Novus-Initium/IMPs
 cd imps
 yarn install
-Copy
+```
+
 2. Start a local network:
+
+```
 yarn chain
-Copy
+```
+
 3. Deploy the test contract:
+
+```
 yarn deploy
 Copy
+```
+
 4. Start the NextJS app:
+
+```
 yarn start
 Copy
+```
+
+5. Connect the the .env.examples by converting it to .env and connect to an IPFS gateway and pinning service (optional)
+
 Visit `http://localhost:3000` to interact with your smart contract.
 
 ## Technology Stack
 
-Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
+Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and SE2.
 
-## Core Components
+## Core Components / Roadmap:
 
 1. **User Profiles and Identity Management**
 - Registry Contract: Manages user profiles with specific roles and permissions.
@@ -82,13 +98,13 @@ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and others.
 ## Future Goals
 
 - Implement saved and custom round settings for easier setup.
-- Add informational hover-overs to explain contract functions.
 - Implement streamlined funding into QF rounds with governance over unallocated funds.
 - Integrate SQF features for donations beyond Allo V1.
+- Make it easier to integrate and custom other various capital allocation mechanisms.
 
 ## About Us
 
-Our team consists of experienced developers and experts in the Political and DeFi space. With a shared history in working with non-profits and tracking federal grant funding, we are passionate about using technology for social good.
+Our team consists of experienced developers and pioneers in the Political and DeFi space. With a shared history in working with non-profits and tracking federal grant funding, we are passionate about using technology for social good.
 
 Crafted by Ninit.
 
