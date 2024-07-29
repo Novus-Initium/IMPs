@@ -8,7 +8,7 @@ IMPS (Impact Measurement Protocols) is Ninit's first iteration of a custom Grant
 
 IMPS is a subjective measurement system designed to analyze and assess impact, using that data to hold projects accountable for poor impact reporting or failure to deliver on promises. It's particularly useful with Streaming Quadratic Funding (SQF) and interesting to implement in direct single-funder (SF) donations outside of QF pools.
 
-Built using Scaffold-Eth-2 and inspired by Allo V1, IMPS makes it easier for developers to fork and customize their own accountable funding mechanism or QF grant stack. This project was a precusor to the scaffold grants stack concept.
+Built using Scaffold-Eth-2 and inspired by Allo V1, IMPS makes it easier for developers to fork and customize their own accountable funding mechanism or QF grant stack. This project was a precursor to the scaffold grants stack concept.
 
 ### Key Features
 
