@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
-import '../../styles/ProjectMetadataComponent.css';
 
 type ProjectMetadata = {
   id: number;
@@ -66,24 +65,56 @@ const ProjectMetadataComponent = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h2 style={{ color: 'black' }}>Projects</h2>
-      {projects.map((project, index) => {
-        const pointerData = parsePointer(project.metadata.pointer);
-        console.log('Pointer Data:', project.metadata.pointer); // Debugging log
-        return (
-          <div key={index} className="project-pane">
-            <h3>Project ID: {project.id}</h3>
-            {<p><strong>Name:</strong> {pointerData.name}</p>}
-            {pointerData.name && <p><strong>Name:</strong> {pointerData.name}</p>}
-            {pointerData.description && <p><strong>Description:</strong> {pointerData.description}</p>}
-            {pointerData.website && <p><strong>Website:</strong> <a href={pointerData.website} target="_blank" rel="noopener noreferrer">{pointerData.website}</a></p>}
-            {pointerData.twitterHandle && <p><strong>Twitter Handle:</strong> @{pointerData.twitterHandle}</p>}
-            {pointerData.githubUsername && <p><strong>Github Username:</strong> {pointerData.githubUsername}</p>}
-            {pointerData.githubOrganization && <p><strong>Github Organization:</strong> {pointerData.githubOrganization}</p>}
-          </div>
-        );
-      })}
+    <div className="p-4 sm:p-6 md:p-8">
+      <h2 className="text-3xl font-bold text-white mb-8">Projects</h2>
+      <div className="space-y-6">
+        {projects.map((project, index) => {
+          const pointerData = parsePointer(project.metadata.pointer);
+          console.log('Pointer Data:', project.metadata.pointer); // Debugging log
+          return (
+            <div key={index} className="card bg-gray-800 shadow-lg rounded-lg overflow-hidden w-full">
+              <div className="card-body p-6 sm:p-8">
+                <h3 className="text-2xl font-semibold text-white mb-4">Project ID: {project.id}</h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {pointerData.name && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Name:</strong> {pointerData.name}
+                    </p>
+                  )}
+                  {pointerData.description && (
+                    <p className="text-gray-300 sm:col-span-2">
+                      <strong className="font-medium text-white">Description:</strong> {pointerData.description}
+                    </p>
+                  )}
+                  {pointerData.website && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Website:</strong>{' '}
+                      <a href={pointerData.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                        {pointerData.website}
+                      </a>
+                    </p>
+                  )}
+                  {pointerData.twitterHandle && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Twitter:</strong> @{pointerData.twitterHandle}
+                    </p>
+                  )}
+                  {pointerData.githubUsername && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Github User:</strong> {pointerData.githubUsername}
+                    </p>
+                  )}
+                  {pointerData.githubOrganization && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Github Org:</strong> {pointerData.githubOrganization}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

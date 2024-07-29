@@ -4,9 +4,7 @@ import { ethers } from 'ethers';
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
 import { getABI, getNetworkName } from '../../utils/utils.js';
 import {applyToRound} from "../../utils/allo/applyToRound"
-import "../../styles/ExploreFutureRounds.css";
 import parsePointer from "../../utils/allo/parsePointer"
-import { notification } from "~~/utils/scaffold-eth";
 
 type ProjectMetadata = {
   id: number;
@@ -115,26 +113,37 @@ const ExploreFutureRounds = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   return (
-    <div className="explore-rounds-container">
-      <h1>Explore Future Rounds</h1>
-      <div className="rounds-grid">
+    <div className="p-4 sm:p-6 md:p-8">
+      <h1 className="text-3xl font-bold text-white mb-8">Explore Future Rounds</h1>
+      <div className="space-y-6">
         {futureRounds.length === 0 ? (
-          <p>No future rounds available.</p>
+          <p className="text-white text-xl">No future rounds available.</p>
         ) : (
           futureRounds.map((round, index) => (
-            <div key={index} className="card bg-base-100 w-96 shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title">{round.name}</h2>
-                <p>{round.description}</p>
-                <p><strong>Application Start Time:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
-                <p><strong>Application End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
-                <p><strong>Round Start Time:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
-                <p><strong>Round End Time:</strong> {new Date(round.roundEndTime).toLocaleString()}</p> 
-                <p><strong>Match Amount (ETH):</strong> {round.matchAmount}</p>     
+            <div key={index} className="card bg-gray-800 shadow-lg rounded-lg overflow-hidden w-2/3 mx-auto">
+              <div className="card-body p-6 sm:p-8">
+                <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                  <p className="text-gray-300 sm:col-span-2">{round.description}</p>
+                  <p className="text-gray-300">
+                    <strong className="font-medium text-white">Application Start:</strong> {new Date(round.applicationsStartTime).toLocaleString()}
+                  </p>
+                  <p className="text-gray-300">
+                    <strong className="font-medium text-white">Application End:</strong> {new Date(round.applicationsEndTime).toLocaleString()}
+                  </p>
+                  <p className="text-gray-300">
+                    <strong className="font-medium text-white">Round Start:</strong> {new Date(round.roundStartTime).toLocaleString()}
+                  </p>
+                  <p className="text-gray-300">
+                    <strong className="font-medium text-white">Round End:</strong> {new Date(round.roundEndTime).toLocaleString()}
+                  </p>
+                  <p className="text-gray-300">
+                    <strong className="font-medium text-white">Match Amount (ETH):</strong> {round.matchAmount}
+                  </p>
+                </div>
                 <div className="card-actions justify-end">
-                  <details className="dropdown">
-                    <summary className="btn m-1">Apply to Round</summary>
-                    <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                  <details className="dropdown dropdown-top dropdown-end">
+                    <summary className="btn btn-primary m-1">Apply to Round</summary>
+                    <ul className="menu dropdown-content bg-base-200 rounded-box z-[1] w-52 p-2 shadow mt-2">
                       {projects.map((project) => {
                         const pointerData = parsePointer(project.metadata.pointer);
                         return (
@@ -149,6 +158,7 @@ const ExploreFutureRounds = () => {
                                   console.error("Error applying to round:", error);
                                 }
                               }}
+                              className="text-gray-200 hover:bg-gray-700"
                             >
                               {pointerData.name || `Project ${project.id}`}
                             </a>

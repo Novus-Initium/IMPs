@@ -3,7 +3,6 @@ import { useAccount, useClient } from 'wagmi';
 import { BrowserProvider, Contract, Log } from 'ethers';
 import { useScaffoldReadContract } from '~~/hooks/scaffold-eth';
 import deployedContracts from '../../contracts/deployedContracts'; // Adjust the import path as needed
-import '../../styles/ProjectMetadataComponent.css';
 
 type DeployedContractsType = typeof deployedContracts;
 
@@ -116,26 +115,50 @@ const ProjectEvents = () => {
   if (error) return <p style={{ color: 'black' }}>{error}</p>;
 
   return (
-    <div>
-      <h2 style={{ color: 'black' }}>Your Projects</h2>
-      {userProjects.map((project, index) => {
-        const pointerData = parsePointer(project.metadata.pointer);
-        return (
-          <div key={index} className="project-pane">
-            <h3 style={{ color: 'black' }}>Project ID: {project.id}</h3>
-            {pointerData.name && <p style={{ color: 'black' }}><strong>Name:</strong> {pointerData.name}</p>}
-            {pointerData.description && <p style={{ color: 'black' }}><strong>Description:</strong> {pointerData.description}</p>}
-            {pointerData.website && (
-              <p style={{ color: 'black' }}>
-                <strong>Website:</strong> <a href={pointerData.website} target="_blank" rel="noopener noreferrer">{pointerData.website}</a>
-              </p>
-            )}
-            {pointerData.twitterHandle && <p style={{ color: 'black' }}><strong>Twitter Handle:</strong> @{pointerData.twitterHandle}</p>}
-            {pointerData.githubUsername && <p style={{ color: 'black' }}><strong>Github Username:</strong> {pointerData.githubUsername}</p>}
-            {pointerData.githubOrganization && <p style={{ color: 'black' }}><strong>Github Organization:</strong> {pointerData.githubOrganization}</p>}
-          </div>
-        );
-      })}
+    <div className="p-4 sm:p-6 md:p-8">
+      <h2 className="text-3xl font-bold text-white mb-8">Your Projects</h2>
+      <div className="space-y-6">
+        {userProjects.map((project, index) => {
+          const pointerData = parsePointer(project.metadata.pointer);
+          return (
+            <div key={index} className="card bg-gray-800 shadow-lg rounded-lg overflow-hidden w-full">
+              <div className="card-body p-6 sm:p-8">
+                <h2 className="text-2xl font-semibold text-white mb-4">{pointerData.name}</h2>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {pointerData.description && (
+                    <p className="text-gray-300 sm:col-span-2">
+                      <strong className="font-medium text-white">Description:</strong> {pointerData.description}
+                    </p>
+                  )}
+                  {pointerData.website && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Website:</strong>{' '}
+                      <a href={pointerData.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                        {pointerData.website}
+                      </a>
+                    </p>
+                  )}
+                  {pointerData.twitterHandle && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Twitter:</strong> @{pointerData.twitterHandle}
+                    </p>
+                  )}
+                  {pointerData.githubUsername && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Github User:</strong> {pointerData.githubUsername}
+                    </p>
+                  )}
+                  {pointerData.githubOrganization && (
+                    <p className="text-gray-300">
+                      <strong className="font-medium text-white">Github Org:</strong> {pointerData.githubOrganization}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
