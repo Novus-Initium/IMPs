@@ -18,12 +18,8 @@ const Home: NextPage = () => {
             <span className="block text-3xl mb-2 secondary-100">Impact Measurement Protocols</span>
             <span className="block text-2xl text-secondary-200 font-bold">
               <div class="avatar">
-                <div class="w-6 rounded"><img src="/favicon.png"/>
-                </div>
               </div>Fund A Round and Find Out
               <div class="avatar">
-                <div class="w-6 rounded"><img src="IMPslogo.svg"/>
-                </div>
               </div>
             </span>
           </h1>
