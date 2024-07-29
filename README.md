@@ -28,7 +28,7 @@ Where:
 VoterScore: Individual voter's impact score (e.g., 1-10)
 VoterContribution: Amount contributed by the voter
 TotalProjectFunding: Total funding received by the project
-Copy
+
 ## Getting Started
 
 ### Requirements
