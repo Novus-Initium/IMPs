@@ -101,28 +101,29 @@ const ExploreActiveRounds = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>View Rounds Ended</h1>
-      <ul>
+    <div className="p-4 sm:p-6 md:p-8">
+      <h1 className="text-3xl font-bold text-white mb-8">View Rounds Ended</h1>
+      <div className="space-y-6">
         {Object.entries(rounds).map(([address, roundData]) => (
-          <li key={address}>
-            <div className="card-body">
-                <h2 className="card-title">Round {roundData.name}</h2>
-                    <p>Round Description: {roundData.description}</p>
-                    <p>Round Token: {roundData.token}</p>
-                    <p>Round Match Amount: {roundData.matchAmount}</p>
-                    <p>Round Application Start Time: {roundData.applicationsStartTime}</p>
-                    <p>Round Application Start Time: {roundData.applicationsEndTime}</p>
-                    <p>Round Round Start Time: {roundData.roundStartTime}</p>
-                    <p>Round Round End Time: {roundData.roundEndTime}</p>                
-                    <div className="card-actions justify-end">
+          <div key={address} className="card bg-gray-800 shadow-lg rounded-lg overflow-hidden w-lg max-w-4xl mx-auto">
+            <div className="card-body p-6 sm:p-8">
+              <h2 className="text-2xl font-semibold text-white mb-4">Round: {roundData.name}</h2>
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                <p className="text-gray-300 sm:col-span-2"><strong className="font-medium text-white">Description:</strong> {roundData.description}</p>
+                <p className="text-gray-300"><strong className="font-medium text-white">Token:</strong> {roundData.token}</p>
+                <p className="text-gray-300"><strong className="font-medium text-white">Match Amount:</strong> {roundData.matchAmount}</p>
+                <p className="text-gray-300"><strong className="font-medium text-white">Application Start:</strong> {new Date(roundData.applicationsStartTime).toLocaleString()}</p>
+                <p className="text-gray-300"><strong className="font-medium text-white">Application End:</strong> {new Date(roundData.applicationsEndTime).toLocaleString()}</p>
+                <p className="text-gray-300"><strong className="font-medium text-white">Round Start:</strong> {new Date(roundData.roundStartTime).toLocaleString()}</p>
+                <p className="text-gray-300"><strong className="font-medium text-white">Round End:</strong> {new Date(roundData.roundEndTime).toLocaleString()}</p>
+              </div>
+              <div className="card-actions justify-end">
                 <button className="btn btn-primary">Set Up Payout</button>
-                </div>
+              </div>
             </div>
-
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

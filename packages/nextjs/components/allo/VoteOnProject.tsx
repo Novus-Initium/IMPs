@@ -242,24 +242,24 @@ const fetchGrantAddress = async (projectId: string) => {
 
   // Render the fetched rounds once loaded
   return (
-    <div>
+    <div className="p-4 sm:p-6 md:p-8">
       {!selectedRound ? (
         <>
-          <h2 style={{ fontSize: '2rem', textAlign: 'center', margin: '20px 0' }}>Active Rounds</h2>
-          <ul className="flex flex-wrap gap-4">
+          <h2 className="text-3xl font-bold text-white text-center mb-8">Active Rounds</h2>
+          <ul className="flex flex-wrap gap-6 justify-center">
             {futureRounds.map((round, index) => (
-              <div key={index} className="card bg-base-100 w-96 shadow-xl">
-                <div className="card-body">
-                  <h2 className="card-title">{round.name}</h2>
-                  <p><strong>Round Name:</strong> {round.name}</p>
-                  <p><strong>Round Description:</strong> {round.description}</p>
-                  <p><strong>Application Start Time:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
-                  <p><strong>Application End Time:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
-                  <p><strong>Round Start Time:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
-                  <p><strong>Round End Time:</strong> {new Date(round.roundEndTime).toLocaleString()}</p>
-                  <p><strong>Token:</strong> {round.token}</p>
-
-                  <button onClick={() => handleViewApplications(round)}>View Applications</button>
+              <div key={index} className="card bg-gray-800 shadow-lg rounded-lg overflow-hidden w-full sm:w-5/6 md:w-2/3 max-w-4xl mx-auto">
+                <div className="card-body p-6 sm:p-8">
+                  <h2 className="text-2xl font-semibold text-white mb-4">{round.name}</h2>
+                  <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                    <p className="text-gray-300 sm:col-span-2"><strong className="font-medium text-white">Description:</strong> {round.description}</p>
+                    <p className="text-gray-300"><strong className="font-medium text-white">Application Start:</strong> {new Date(round.applicationsStartTime).toLocaleString()}</p>
+                    <p className="text-gray-300"><strong className="font-medium text-white">Application End:</strong> {new Date(round.applicationsEndTime).toLocaleString()}</p>
+                    <p className="text-gray-300"><strong className="font-medium text-white">Round Start:</strong> {new Date(round.roundStartTime).toLocaleString()}</p>
+                    <p className="text-gray-300"><strong className="font-medium text-white">Round End:</strong> {new Date(round.roundEndTime).toLocaleString()}</p>
+                    <p className="text-gray-300"><strong className="font-medium text-white">Token:</strong> {round.token}</p>
+                  </div>
+                  <button onClick={() => handleViewApplications(round)} className="btn btn-primary">View Applications</button>
                 </div>
               </div>
             ))}
@@ -267,26 +267,28 @@ const fetchGrantAddress = async (projectId: string) => {
         </>
       ) : (
         <>
-          <button onClick={() => setSelectedRound(null)}>Back to Rounds</button>
-          <h3>Applications for {selectedRound.name}</h3>
-          <ul className="flex flex-wrap gap-4">
+          <button onClick={() => setSelectedRound(null)} className="btn btn-secondary mb-4">Back to Rounds</button>
+          <h3 className="text-2xl font-bold text-white mb-8">Applications for {selectedRound.name}</h3>
+          <ul className="flex flex-wrap gap-6 justify-center">
             {Object.keys(roundApplicationsMapping).map((projectId) => {
               const application = roundApplicationsMapping[projectId];
               return (
-                <div key={projectId} className="card bg-base-100 w-96 shadow-xl">
-                  <div className="card-body">
-                    <h2 className="card-title">{application.name}</h2>
-                    <p><strong>Description:</strong> {application.description}</p>
-                    <p><strong>Website:</strong> <a href={application.website} target="_blank" rel="noopener noreferrer">{application.website}</a></p>
-                    <p><strong>Twitter:</strong> {application.twitterHandle}</p>
-                    <p><strong>GitHub Username:</strong> {application.githubUsername}</p>
-                    <p><strong>GitHub Organization:</strong> {application.githubOrganization}</p>
+                <div key={projectId} className="card bg-gray-800 shadow-lg rounded-lg overflow-hidden w-full sm:w-5/6 md:w-2/3 max-w-4xl mx-auto">
+                  <div className="card-body p-6 sm:p-8">
+                    <h2 className="text-2xl font-semibold text-white mb-4">{application.name}</h2>
+                    <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                      <p className="text-gray-300 sm:col-span-2"><strong className="font-medium text-white">Description:</strong> {application.description}</p>
+                      <p className="text-gray-300"><strong className="font-medium text-white">Website:</strong> <a href={application.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">{application.website}</a></p>
+                      <p className="text-gray-300"><strong className="font-medium text-white">Twitter:</strong> {application.twitterHandle}</p>
+                      <p className="text-gray-300"><strong className="font-medium text-white">GitHub Username:</strong> {application.githubUsername}</p>
+                      <p className="text-gray-300"><strong className="font-medium text-white">GitHub Organization:</strong> {application.githubOrganization}</p>
+                    </div>
                     <button 
                       onClick={() =>  {
                         setSelectedProject(projectId);
-                        const amount: any = prompt("Enter the amount in Ether:");
+                        const amount = prompt("Enter the amount in Ether:");
                         handleDonate(projectId, selectedRound, amount);
-                    }} 
+                      }} 
                       className="mt-4 btn btn-primary"
                     >
                       Donate
