@@ -1,6 +1,5 @@
 # IMPS - Impact Measurement Protocols
 
-IMPS (Impact Measurement Protocols) is a first iteration of a custom Grant Stack application, leveraging Scaffold-Eth-2 and custom Allo V1 contracts. It aims to simplify the onboarding experience into web3 with Quadratic Funding (QF) rounds while providing additional resources and tooling for communities to subjectively measure impact under specific conditions with fairly weighted votes.
 https://ninimps.vercel.app/
 
 IMPS (Impact Measurement Protocols) is Ninit's first iteration of a custom Grant Stack application, leveraging Scaffold-Eth-2 and custom Allo V1 contracts. It aims to simplify the onboarding experience into web3 with Quadratic Funding (QF) rounds while providing additional resources and tooling for communities to subjectively measure impact and create custom allocation and accountability mechanisms. 
@@ -9,7 +8,6 @@ IMPS (Impact Measurement Protocols) is Ninit's first iteration of a custom Grant
 
 IMPS serves both as a grant stack scaffolding and subjective measurement system designed to analyze and assess impact, using that data to hold projects accountable for poor impact reporting or failure to deliver on promises. It's particularly useful with Streaming Quadratic Funding (SQF) and interesting to implement in direct single-funder (SF) donations outside of QF pools.
 
-Built using Scaffold-Eth-2 and Allo V1, IMPS makes it easier for developers to fork and customize their own funding mechanisms or QF grant stack. This project is a more built-out and customized variation of the Scaffold-Grant-Stack application.
 Built using Scaffold-Eth-2 and inspired by Allo V1, IMPS makes it easier for developers to fork and customize their own accountable funding mechanism or QF grant stack. This project was a precursor to the scaffold grants stack concept.
 
 ### Key Features to be implemented
@@ -29,7 +27,7 @@ Where:
 VoterScore: Individual voter's impact score (e.g., 1-10)
 VoterContribution: Amount contributed by the voter
 TotalProjectFunding: Total funding received by the project
-Copy
+
 ## Getting Started
 
 ### Requirements
@@ -111,4 +109,3 @@ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, Allo V1, EAS, and SE2.
 Our team consists of experienced developers and pioneers in the Political and DeFi space. With a shared history in working with non-profits and tracking federal grant funding, we are passionate about using technology for social good.
 
 Crafted by Ninit.
-
