@@ -1,4 +1,5 @@
 import * as chains from "viem/chains";
+import { defineChain } from 'viem';
 
 export type ScaffoldConfig = {
   targetNetworks: readonly chains.Chain[];
@@ -8,9 +9,31 @@ export type ScaffoldConfig = {
   onlyLocalBurnerWallet: boolean;
 };
 
+const doric = defineChain({
+  id: 1717,
+  name: 'Doric Network',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Doric',
+    symbol: 'DORIC',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://mainnet.doric.network'],
+      webSocket: ['wss://mainnet-ws.doric.network'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'Doric Scan',
+      url: 'https://explorer.doric.network',
+    },
+  },
+})
+
 const scaffoldConfig = {
   // The networks on which your DApp is live
-  targetNetworks: [chains.sepolia],
+  targetNetworks: [doric],
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect if you only target the local network (default is 4000)
