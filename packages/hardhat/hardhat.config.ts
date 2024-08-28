@@ -38,10 +38,6 @@ const config: HardhatUserConfig = {
     },
   },
 
-
-
-
-
   
   networks: {
     // View the networks that are pre-configured.
@@ -119,6 +115,10 @@ const config: HardhatUserConfig = {
     doric: {
       url: "https://mainnet.doric.network",
       accounts: [deployerPrivateKey],
+      chainId: 1717,
+      gasPrice: 250000000000, // 250 gwei
+      gasMultiplier: 1.2,
+      timeout: 1000000
     },
   },
   // configuration for harhdat-verify plugin

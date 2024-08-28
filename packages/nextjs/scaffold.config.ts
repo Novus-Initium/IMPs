@@ -11,6 +11,7 @@ export type ScaffoldConfig = {
 
 const doric = defineChain({
   id: 1717,
+  gasPrice: 250000000000, // 250 gwei
   name: 'Doric Network',
   nativeCurrency: {
     decimals: 18,
