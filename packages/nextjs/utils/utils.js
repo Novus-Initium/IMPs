@@ -112,7 +112,8 @@ const chainIdToNetworkName = {
   "42": "kovan",
   "137": "polygon",
   "31337": "localhost",
-  "11155111": "sepolia"
+  "11155111": "sepolia",
+  "1717": "doric"
 };
 
 const getNetworkName = async (provider) => {
